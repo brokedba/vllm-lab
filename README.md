@@ -20,6 +20,11 @@ This repository contains Terraform configurations for deploying [vLLM](https://g
 - **Flexible Deployment**: Works with Kubernetes, Docker, and cloud-based orchestration tools.
 - **Multi-Backend Support 🔗**: Works across different cloud providers and Kubernetes environments.
 
+# Production stack features
+- **Interface Design:** Production Stack and LMCache is built as an open, extensible framework, intentionally leaving room for community contributions and innovations. We aim to keep the interface flexible to support more storage and compute devices in the future.
+- **vLLM Support:** LMCache supports the latest vLLM versions through the KV connector interface (PR: https://github.com/vllm-project/vllm/pull/12953) and will continue to contribute and support the latest vLLM by leveraging an vLLM upstream connector.
+- **KV Cache Performance:** LMCache has advanced KV cache optimizations—efficient KV transfer and blending, particularly useful for long-context inference.
+- **Developer Friendliness:** In Production Stack and LMCache, operators can directly program LLM serving logics in Python, allowing more optimizations in the long run. Production stack is also easy to setup in 5 minutes [https://github.com/vllm-project/production-stack/tree/main/tutorials].
 ## Deployment Guide 🛠️
 
 ### Prerequisites ✅
