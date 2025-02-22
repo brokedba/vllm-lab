@@ -12,6 +12,14 @@ This repository contains Terraform configurations for deploying [vLLM](https://g
 - **Google Cloud Platform (GCP) GKE** 🔵
 - **Microsoft Azure AKS** 🔷
 
+## VLLM Features ✨
+- **PagedAttention 🚀**: Enables efficient memory management to handle large context sizes, reducing redundant computation and maximizing GPU utilization.
+- **Continuous Batching 📦**: Dynamically schedules incoming requests for maximum throughput.
+- **Multi-GPU and Distributed Support**: Seamless scaling across multiple GPUs and nodes.
+- **Fast Token Generation ⚡**: Optimized kernel implementation speeds up inference performance.
+- **Flexible Deployment**: Works with Kubernetes, Docker, and cloud-based orchestration tools.
+- **Multi-Backend Support 🔗**: Works across different cloud providers and Kubernetes environments.
+
 ## Deployment Guide 🛠️
 
 ### Prerequisites ✅
