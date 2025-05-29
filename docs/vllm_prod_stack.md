@@ -13,7 +13,7 @@ This document provides an overview of vLLM and its recent updates based on the [
 - **Flexible Deployment**: Works with Kubernetes, Docker, and cloud-based orchestration tools.
 - **Multi-Backend Support 🔗**: Works across different cloud providers and Kubernetes environments. 
 
-## Latest Updates (2025-01-21)
+## Latest Updates
 
 The latest release of vLLM includes major enhancements and new capabilities:
 
@@ -78,18 +78,19 @@ The latest **vLLM Production Stack** simplifies LLM deployment and serving with:
 - **Optimized FP8 Execution**: Experimental support for lower-precision computation.
 - **Enhanced Observability**: Improved logging and monitoring integrations.
 
-For more details, visit the [official vLLM repository](https://github.com/vllm-project/vllm).
+For more details, visit the [official vLLM production-stack repository](https://github.com/vllm-project/production-stack).
 ## Useful Links 🔗
 - [vLLM GitHub](https://github.com/vllm-project/vllm)
-- [vLLM Blog](https://blog.lmcache.ai)
 - [Official Documentation](https://vllm.ai/docs)
+- [LMcache](https://lmcache.ai)
+- [vLLM Blog]( https://blog.vllm.ai/)
 
 ## Conclusion 🎯
 vLLM is a game-changer for LLM inference, offering speed, scalability, and flexibility across multiple cloud environments. Whether you're a researcher or a production engineer, vLLM provides the necessary tools to deploy and scale large language models effectively.
 
 ---
 
-Happy Coding! 💻🚀
+Happy Inferencing! 💻🚀
 
 
 
