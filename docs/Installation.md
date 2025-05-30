@@ -195,7 +195,7 @@ pip install https://wheels.vllm.ai/${VLLM_COMMIT}/vllm-1.0.0.dev-cp38-abi3-manyl
 > [!TIP]
 > **vLLM** uses **PyTorch** as an Interface directly speaking to your GPU (chip) va optimized kernels, leveraging powerful features like torch.compile, to enable LLM computations.
 
-### 2. Build wheel from source
+  ### 1.2. Build wheel from source
 A. Set up using Python-only build (without compilation)
 ```nginx
 git clone https://github.com/vllm-project/vllm.git
