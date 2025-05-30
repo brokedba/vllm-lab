@@ -4,6 +4,9 @@
 
 This repository contains Terraform configurations for deploying [vLLM](https://github.com/vllm-project/vllm) on Kubernetes clusters across multiple cloud providers, including Civo, Oracle Cloud (OCI), AWS, GCP, and Azure. This setup is based on the [llmcache vllm production-stack](https://github.com/llmcache/vllm-production-stack) project.
 
+> [!TIP]
+> For non Kubernetes deployments including CPU builds please check my [Installation.tutorial](./docs/Installation.md)
+
 ## Supported Platforms 🌎
 
 - **Civo Kubernetes** ☁️
