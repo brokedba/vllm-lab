@@ -13,12 +13,12 @@
     * [2. Download NVIDIA CUDA toolkit](#2-download-nvidia-cuda-toolkit)
     * [3. Create the Environment](#3-create-the-environment)
 * [II. INSTALL VLLM](#ii-install-vllm)
-    * [1.Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
-        * [A.Using python](#A-using-python-vLLM-package)  
-        * [B.Build wheel from source](#B-build-wheel-from-source)
-    * [2.Install On CPU](#3-install-on-cpu)
-        * [A.Build wheel from source](#A-build-cpu-wheel-from-source)
-        * [B.Set up using Docker](#B-set-up-using-docker)
+    * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
+        * [A. Using python](#A-using-python-vLLM-package)  
+        * [B. Build wheel from source](#B-build-wheel-from-source)
+    * [2. Install On CPU](#3-install-on-cpu)
+        * [A. Build CPU wheel from source](#A-build-cpu-wheel-from-source)
+        * [B. Set up using Docker](#B-set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
 
