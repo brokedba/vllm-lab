@@ -15,7 +15,7 @@
 * [II. INSTALL VLLM](#ii-install-vllm)
     * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
     * [2. Build wheel from source](#2-build-wheel-from-source)
-    * [2. Install On CPU](#2-install-on-cpu)
+    * [3. Install On CPU](#3-install-on-cpu)
     * [Set up using Docker](#set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
@@ -213,7 +213,7 @@ export MAX_JOBS=6
 pip install -e .
 ```
 > When you want to modify C++ or CUDA code. This can take several minutes. 
-## 2. Install On CPU
+## 3. Install On CPU
 To install vLLM on CPU, you must build it from source as there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
 
 Which includes: 
