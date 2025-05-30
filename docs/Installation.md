@@ -263,12 +263,13 @@ $ docker run --rm \
              vllm-cpu-env \
              --model=/models/llama3  \
              --dtype=bfloat16 \
-             other vLLM OpenAI server arguments
+
+# You can either use the ipc=host flag or --shm-size flag to allow the container to access the host's shared memory.        
 ```
-> This can take extensive time depending on your machine. We recommend the pre-built-images from Amazone public registry (ECR) 
+> This can take a long time. We recommend the pre-built-images from [Amazone public registry (ECR) ](https://gallery.ecr.aws/q9t5s3a7/vllm-cpu-release-repo)
 
  Example with Hugging Face token
-```bash
+```nginx
 docker run --rm \
   --privileged=true \
   --shm-size=4g \
@@ -279,12 +280,11 @@ docker run --rm \
   vllm-cpu-env \
   --model=meta-llama/Llama-3.2-1B-Instruct \
   --dtype=bfloat16
+  --shm-size=2g
+ ## --api-key supersecretkey  (require a key from clients to access the model) 
+ 
 ```
-> To test inference without HG credentials use below models :
-> 
-> TinyLlama/TinyLlama-1.1B-Chat-v1.0
-> mistralai/Mistral-7B-Instruct-v0.1
-> TheBloke/OpenHermes-2.5-Mistral-GGUF
+> To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
 ---
 ## III Interacting With The LLM
 after runing the vllm cpu image on docker we can interract with the endpoint on port 8000 
@@ -293,7 +293,7 @@ from openai import OpenAI
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
 client = OpenAI(
-    api_key=openai_api_key,
+    api_key=openai_api_key,   <--- key is empty if not specified in the docker launch
     base_url=openai_api_base,
 )
 models = client.models.list()
