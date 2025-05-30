@@ -244,8 +244,15 @@ pip install -v -r requirements/cpu.txt --extra-index-url https://download.pytorc
 4. Finally, build and install vLLM CPU backend:
 ```bash
 export VLLM_CPU_KVCACHE_SPACE=2
-export VLLM_CPU_OMP_THREADS_BIND=0-4   # check how many cores you have with lscpu -e
+# check how many cores you have with lscpu -e
+export VLLM_CPU_OMP_THREADS_BIND=0-4 
 VLLM_TARGET_DEVICE=cpu python setup.py install
+```
+5. **Serve the model**
+```bash
+   vllm server Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
+# optioanl  
+vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api-key token-abc123
 ```
 <details> 
 <summary>If you want to develop vllm, install it in editable mode instead.</summary>  
