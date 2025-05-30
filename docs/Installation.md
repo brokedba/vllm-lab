@@ -14,7 +14,7 @@
     * [3. Create the Environment](#3-create-the-environment)
 * [II. INSTALL VLLM](#ii-install-vllm)
     * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
-    * [2. Build wheel from source](#1.2-build-wheel-from-source)
+    * [1.2 Build wheel from source](##1.2-build-wheel-from-source)
     * [3. Install On CPU](#3-install-on-cpu)
     * [Set up using Docker](#set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
