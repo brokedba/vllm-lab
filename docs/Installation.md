@@ -214,6 +214,13 @@ pip install -e .
 ```
 > When you want to modify C++ or CUDA code. This can take several minutes. 
 ## 3. Install On CPU
+vLLM CPU backend supports the following vLLM features:
+- Tensor Parallel
+- Model Quantization (INT8 W8A8, AWQ, GPTQ)
+- Chunked-prefill
+- Prefix-caching
+- FP8-E5M2 KV cache
+
 To install vLLM on CPU, you must build it from source as there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
 
 Which includes: 
