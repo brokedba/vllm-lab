@@ -1,14 +1,30 @@
 
 
 ## VLLM INSTALLATION
-> This section is related to Ubuntu 22.4 LTS only (WSL optionaly).
+> This section is related to Ubuntu 22.4 LTS only (WSL optionally).
+
+![header](https://github.com/user-attachments/assets/c127c962-bd81-4de8-aff8-f46869639f7d)
+## Table of Contents
+
+* [VLLM INSTALLATION](#vllm-installation)
+    * [Requirements](#requirements)
+* [I. PREPARATION](#i-preparation)
+    * [1. Install Nvidia Drivers](#1-install-nvidia-drivers)
+    * [2. Download NVIDIA CUDA toolkit](#2-download-nvidia-cuda-toolkit)
+    * [3. Create the Environment](#3-create-the-environment)
+* [II. INSTALL VLLM](#ii-install-vllm)
+    * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
+    * [2. Build wheel from source](#2-build-wheel-from-source)
+    * [2. Install On CPU](#2-install-on-cpu)
+    * [Set up using Docker](#set-up-using-docker)
+* [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
 
 - WSL version 2
 - Python: 3.8–3.12
 - GPU ABOVE GTX1080
 ---
-## I. Preparation
+## I. PREPARATION
 ### 1. Install Nvidia Drivers
 First, install the appropriate NVIDIA drivers for your GPU:
 ```nginx
@@ -138,13 +154,15 @@ Install vLLM along with its necessary dependencies:
 ```nginx
 # Install vLLM with CUDA 12.8.
 pip install vllm --extra-index-url https://download.pytorch.org/whl/cu128
+# OR
+pip install torch==X.Y.Z+cu128 -f https://download.pytorch.org/whl/torch_stable.html
 # latest pre-released version
 pip install vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
 # stable version , -U means upgrade if exists
-pip -U install vllm==0.8.5 
+pip install -U vllm==0.8.5 
 ```
 > `--pre` is required for pip to consider pre-released versions.
-2. Using uv which automatically choses the right cuda version based on the current driver
+2. Using uv which automatically chooses the right cuda version based on the current driver
 ```nginx
 uv pip install vllm --torch-backend=auto
 # last version with specific cuda
@@ -170,7 +188,7 @@ Therefore, for pip users, it requires specifying a placeholder wheel name to ins
 export VLLM_COMMIT=33f460b17a54acb3b6cc0b03f4a17876cff5eafd
 pip install https://wheels.vllm.ai/${VLLM_COMMIT}/vllm-1.0.0.dev-cp38-abi3-manylinux1_x86_64.whl
 ```
->  exmaple url:
+>  example url:
 > https://wheels.vllm.ai/33f460b17a54acb3b6cc0b03f4a17876cff5eafd/vllm-1.0.0.dev-cp38-abi3-manylinux1_x86_64.whl
 </details>
 
@@ -205,7 +223,7 @@ sudo apt-get update  -y
 sudo apt-get install -y gcc-12 g++-12 libnuma-dev python3-dev
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10 --slave /usr/bin/g++ g++ /usr/bin/g++-12
 ```
-2. clon the vLLM repo
+2. clone the vLLM repo
 ```nginx
 git clone https://github.com/vllm-project/vllm.git vllm_source
 cd vllm_source
@@ -238,8 +256,8 @@ VLLM_TARGET_DEVICE=cpu python setup.py install
             --privileged=true \
             --shm-size=4g \
             -p 8000:8000 \
-            -e VLLM_CPU_KVCACHE_SPACE=2GiB \
-            -e VLLM_CPU_OMP_THREADS_BIND=2 \
+            -e VLLM_CPU_KVCACHE_SPACE=2GiB \      ## allocates 2GB for KV cache on CPU
+            -e VLLM_CPU_OMP_THREADS_BIND=2 \      ## binds to 2 CPU cores for inference
             public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.8.5.post1 \
             --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
             --dtype=bfloat16
@@ -287,7 +305,7 @@ docker run --rm \
 > To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
 ---
 ## III Interacting With The LLM
-after runing the vllm cpu image on docker we can interract with the endpoint on port 8000 
+after running the vllm cpu image on docker we can Interact with the endpoint on port 8000 
 ```python
 from openai import OpenAI
 openai_api_key = "EMPTY"
