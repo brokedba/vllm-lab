@@ -14,7 +14,7 @@
     * [3. Create the Environment](#3-create-the-environment)
 * [II. INSTALL VLLM](#ii-install-vllm)
     * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
-    * [2. Build wheel from source](#2-build-wheel-from-source)
+    * [2. Build wheel from source](#1.2-build-wheel-from-source)
     * [3. Install On CPU](#3-install-on-cpu)
     * [Set up using Docker](#set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
@@ -195,7 +195,7 @@ pip install https://wheels.vllm.ai/${VLLM_COMMIT}/vllm-1.0.0.dev-cp38-abi3-manyl
 > [!TIP]
 > **vLLM** uses **PyTorch** as an Interface directly speaking to your GPU (chip) va optimized kernels, leveraging powerful features like torch.compile, to enable LLM computations.
 
-  ### 1.2. Build wheel from source
+  ### 1.2 Build wheel from source
 A. Set up using Python-only build (without compilation)
 ```nginx
 git clone https://github.com/vllm-project/vllm.git
