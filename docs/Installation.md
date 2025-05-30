@@ -13,10 +13,12 @@
     * [2. Download NVIDIA CUDA toolkit](#2-download-nvidia-cuda-toolkit)
     * [3. Create the Environment](#3-create-the-environment)
 * [II. INSTALL VLLM](#ii-install-vllm)
-    * [1. Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
-    * [2 Build wheel from source](#2-build-wheel-from-source)
-    * [3. Install On CPU](#3-install-on-cpu)
-    * [Set up using Docker](#set-up-using-docker)
+    * [1.Install On GPU (NVIDIA)](#1-install-on-gpu-nvidia)
+        * [A.Using python](#A-using-python-vLLM-package)  
+        * [B.Build wheel from source](#B-build-wheel-from-source)
+    * [2.Install On CPU](#3-install-on-cpu)
+        * [A.Build wheel from source](#A-build-wheel-from-source)
+        * [B.Set up using Docker](#B-set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
 
@@ -149,6 +151,7 @@ conda create -n myenv python=3.12 -y
 ## II. INSTALL VLLM
 There are different ways and parameters to install vLLM . We will explore few of them that might fit your use case.
 ### 1. Install On GPU (NVIDIA)
+#### A. Using Python vLLM package
 Install vLLM along with its necessary dependencies:
 1. Using pip.
 ```nginx
@@ -195,7 +198,7 @@ pip install https://wheels.vllm.ai/${VLLM_COMMIT}/vllm-1.0.0.dev-cp38-abi3-manyl
 > [!TIP]
 > **vLLM** uses **PyTorch** as an Interface directly speaking to your GPU (chip) va optimized kernels, leveraging powerful features like torch.compile, to enable LLM computations.
 
-  ### 2. Build wheel from source
+  #### B. Build wheel from source
 A. Set up using Python-only build (without compilation)
 ```nginx
 git clone https://github.com/vllm-project/vllm.git
@@ -214,12 +217,18 @@ pip install -e .
 ```
 > When you want to modify C++ or CUDA code. This can take several minutes. 
 ## 3. Install On CPU
-vLLM CPU backend supports the following vLLM features:
+ 
+**vLLM CPU backend supports the following vLLM features**:
 - Tensor Parallel
 - Model Quantization (INT8 W8A8, AWQ, GPTQ)
 - Chunked-prefill
 - Prefix-caching
 - FP8-E5M2 KV cache
+### A. Build CPU wheel from source
+**Prerequisite**
+  - OS: Linux
+  - Compiler: gcc/g++ >= 12.3.0 (optional, recommended)
+  - Instruction Set Architecture (ISA): AVX512 (optional, recommended)
 
 To install vLLM on CPU, you must build it from source as there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
 
@@ -262,7 +271,7 @@ vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api
 ```
 </details>
 
-### Set up using Docker
+### B. Set up using Docker
 1. Pre-built images for CPU can be found here
    https://gallery.ecr.aws/q9t5s3a7/vllm-cpu-release-repo
 ```nginx
