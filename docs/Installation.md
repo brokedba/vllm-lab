@@ -243,6 +243,8 @@ pip install -v -r requirements/cpu.txt --extra-index-url https://download.pytorc
 ```
 4. Finally, build and install vLLM CPU backend:
 ```bash
+export VLLM_CPU_KVCACHE_SPACE=2
+export VLLM_CPU_OMP_THREADS_BIND=0-4   # check how many cores you have with lscpu -e
 VLLM_TARGET_DEVICE=cpu python setup.py install
 ```
 <details> 
