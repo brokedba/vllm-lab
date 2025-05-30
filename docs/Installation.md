@@ -19,13 +19,18 @@ sudo apt update  sudo apt install nvidia-driver-535
 sudo reboot
 ```
 ### 2. Download NVIDIA CUDA toolkit
+<details>
+  <summary>TIP</summary>
+
 > [!TIP]
+> 
 > The CUDA Toolkit can be installed using either of two different installation types:
 > 1. Distribution-specific packages (RPM, Deb pkgs)
 > 2. Runfile packages
 >
 > The NVIDIA CUDA Toolkit is available at https://developer.nvidia.com/cuda-downloads.
 
+</details>
 
 **Visit  [Nvidia's official Cuda toolkit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_network) website** 
 to download and install the Nvidia drivers for WSL. 
@@ -186,11 +191,12 @@ B. Set up using Full build (with compilation)
 ```nginx
 git clone https://github.com/vllm-project/vllm.git
 cd vllm
+export MAX_JOBS=6
 pip install -e .
 ```
 > When you want to modify C++ or CUDA code. This can take several minutes. 
 ## 2. Install On CPU
-To install vLLM on CPU, you must build it from sourceas there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
+To install vLLM on CPU, you must build it from source as there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
 
 Which includes: 
 1. Install dependencies
@@ -221,3 +227,83 @@ VLLM_TARGET_DEVICE=cpu python setup.py install
  VLLM_TARGET_DEVICE=cpu python setup.py develop
 ```
 </details>
+
+### Set up using Docker
+1. Pre-built images for CPU can be found here
+   https://gallery.ecr.aws/q9t5s3a7/vllm-cpu-release-repo
+```nginx
+ docker pull public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.8.5.post1
+# Run the container
+ docker run --rm \
+            --privileged=true \
+            --shm-size=4g \
+            -p 8000:8000 \
+            -e VLLM_CPU_KVCACHE_SPACE=2GiB \
+            -e VLLM_CPU_OMP_THREADS_BIND=2 \
+            public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.8.5.post1 \
+            --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+            --dtype=bfloat16
+```
+
+3. Build image from source
+```nginx
+$ docker build -f docker/Dockerfile.cpu --tag vllm-cpu-env --target vllm-openai .
+# download the model 
+huggingface-cli login
+huggingface-cli repo download meta-llama/Llama-3.2-1B-Instruct --local-dir ./llama3
+
+# Launching OpenAI server 
+$ docker run --rm \
+             --privileged=true \
+             --shm-size=4g \
+             -p 8000:8000 \
+             -v "$(pwd)/llama3:/models/llama3" \
+             -e VLLM_CPU_KVCACHE_SPACE=<KV cache space> \
+             -e VLLM_CPU_OMP_THREADS_BIND=<CPU cores for inference> \
+             vllm-cpu-env \
+             --model=/models/llama3  \
+             --dtype=bfloat16 \
+             other vLLM OpenAI server arguments
+```
+> This can take extensive time depending on your machine. We recommend the pre-built-images from Amazone public registry (ECR) 
+
+ Example with Hugging Face token
+```bash
+docker run --rm \
+  --privileged=true \
+  --shm-size=4g \
+  -p 8000:8000 \
+  -e HUGGING_FACE_HUB_TOKEN=your_actual_token \
+  -e VLLM_CPU_KVCACHE_SPACE=1Gi \
+  -e VLLM_CPU_OMP_THREADS_BIND=2 \
+  vllm-cpu-env \
+  --model=meta-llama/Llama-3.2-1B-Instruct \
+  --dtype=bfloat16
+```
+> To test inference without HG credentials use below models :
+> 
+> TinyLlama/TinyLlama-1.1B-Chat-v1.0
+> mistralai/Mistral-7B-Instruct-v0.1
+> TheBloke/OpenHermes-2.5-Mistral-GGUF
+---
+## III Interacting With The LLM
+after runing the vllm cpu image on docker we can interract with the endpoint on port 8000 
+```python
+from openai import OpenAI
+openai_api_key = "EMPTY"
+openai_api_base = "http://localhost:8000/v1"
+client = OpenAI(
+    api_key=openai_api_key,
+    base_url=openai_api_base,
+)
+models = client.models.list()
+model = models.data[0].id
+completion = client.chat.completions.create(
+    model=model,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Hello"},
+    ]
+)
+print(completion.choices[0].message.content)
+```
