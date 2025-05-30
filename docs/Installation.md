@@ -17,7 +17,7 @@
         * [A.Using python](#A-using-python-vLLM-package)  
         * [B.Build wheel from source](#B-build-wheel-from-source)
     * [2.Install On CPU](#3-install-on-cpu)
-        * [A.Build wheel from source](#A-build-wheel-from-source)
+        * [A.Build wheel from source](#A-build-cpu-wheel-from-source)
         * [B.Set up using Docker](#B-set-up-using-docker)
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
