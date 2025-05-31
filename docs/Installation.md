@@ -288,7 +288,7 @@ vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api
             --dtype=bfloat16
 ```
 
-3. Build image from source
+2. Build image from source
 ```nginx
 $ docker build -f docker/Dockerfile.cpu --tag vllm-cpu-env --target vllm-openai .
 # download the model 
