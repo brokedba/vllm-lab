@@ -241,7 +241,7 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10 --slave /
 ```
 2. clone the vLLM repo
 ```nginx
-git clone https://github.com/vllm-project/vllm.git vllm_source
+git clone --branch v0.8.5 https://github.com/vllm-project/vllm.git vllm_source
 cd vllm_source
 ```
 3. Install required Python packages
