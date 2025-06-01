@@ -346,6 +346,7 @@ docker run --rm \
 > To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
 ---
 ## III Interacting With The LLM
+### A. Docker
 after running the vllm cpu image on docker we can Interact with the endpoint on port 8000 
 ```python
 from openai import OpenAI
@@ -358,11 +359,52 @@ client = OpenAI(
 models = client.models.list()
 model = models.data[0].id
 completion = client.chat.completions.create(
-    model=model,
+    model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Hello"},
+        {"role": "user", "content": Who won the wolrd cup in 2022 ?"},
     ]
 )
 print(completion.choices[0].message.content)
+```
+## Python
+- Start the Open AI compatible API server 
+```bash
+vllm serve  TinyLlama/TinyLlama-1.1B-Chat-v1.0 --dtype float16
+```
+- **1. Test the endpoint**
+```nginx
+  curl http://localhost:8000/v1/models | jq .data[].id
+ "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+```
+- **2. Test the completion**
+```
+ curl http://localhost:8000/v1/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        "prompt": "San Francisco is a",
+        "max_tokens": 10,
+        "temperature": 0
+    }' | jq .choices[].text
+``` 
+- **Response**
+```
+" great place to start. The city is home to"
+```
+- **3. Test the chat completion**
+```
+curl http://localhost:8000/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Who won the world cup in 2022 ?"}
+        ]
+    }' | jq .choices[].content 
+``` 
+- **Response**
+```
+"The correct answer is: Argentina won the 2022 world cup."
 ```
