@@ -419,7 +419,7 @@ You might see errors like:
 AttributeError: '_OpNamespace' '_C_utils' object has no attribute 'init_cpu_threads_env'
 ```
 **Solution:**
-You may need to patch/remove/comment this line in `cpu_worker.py`:
+You may need to patch/remove/comment this line in [`vllm/worker/cpu_worker.py`](https://github.com/vllm-project/vllm/blob/main/vllm/worker/cpu_worker.py):
 ```
 # ... snip
 ## comment torch.ops._C_utils.init_cpu_threads_env(...)
