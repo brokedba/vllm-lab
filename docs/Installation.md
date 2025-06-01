@@ -62,6 +62,22 @@ sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
 sudo apt-get -y install cuda-toolkit-12-9
 ````
+- Unininstall cuda in case of conflicts
+```bash
+# Remove CUDA packages
+sudo apt-get remove --purge 'cuda*' 'nvidia*'
+
+# Remove the keyring
+sudo apt-get remove --purge cuda-keyring
+
+# Clean up residual files
+sudo apt-get autoremove -y
+sudo apt-get autoclean
+
+# Check for leftovers (optional)
+dpkg -l | grep cuda
+
+```
 <details>
 <summary>B. Using Runfile:</summary>
 
