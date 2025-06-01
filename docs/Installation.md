@@ -410,7 +410,7 @@ curl http://localhost:8000/v1/chat/completions \
 ```
 
 ## 🛠️ Troubleshooting
-when runing a python module OpenAI endpoint and you're on CPU. 
+When runing a python module OpenAI endpoint and you're on CPU. 
 ```nginx
 python -m vllm.entrypoints.openai.api_server --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0  --dtype bfloat16
 ```
@@ -419,15 +419,25 @@ You might see errors like:
 AttributeError: '_OpNamespace' '_C_utils' object has no attribute 'init_cpu_threads_env'
 ```
 **Solution:**
-You may need to patch/remove this line in cpu_worker.py:
- 
+You may need to patch/remove/comment this line in cpu_worker.py:
 ```
 # ... snip
-torch.ops._C_utils.init_cpu_threads_env(...)
+## comment torch.ops._C_utils.init_cpu_threads_env(...)
 # ... snip
 ```
->[!NOTE]
+<details>
+ <summary>Explanation</summary>
+
+> [!NOTE]
+> 
 > **Root cause**:
-> vllm.serve() and LLM(model, task=...) use different execution paths than python -m vllm.entrypoints.openai.api_server. Here’s the breakdown:
->V0 fallback still crashes if your PyTorch doesn’t have torch.ops._C_utils.init_cpu_threads_env, which is the actual root problem.
+> 
+> **vllm.serve()** and **LLM(model, task=...)** use different execution paths than **python -m vllm.entrypoints.openai.api_server**. 
+>- The later uses the multiprocessing-based VLLM engine and tries to optimize CPU threading.
+>   - That engine explicitly calls torch.ops._C_utils.init_cpu_threads_env, which:
+>     - Exists only in some CPU builds of PyTorch (like nightly or compiled with MKL).
+>     - Does not exist in the basic +cpu wheels from PyPI.
+>
+V0 fallback still crashes if your PyTorch doesn’t have `torch.ops._C_utils.init_cpu_threads_env`, which is the actual root problem.
 ><p align="justified"> <img src= "https://github.com/user-attachments/assets/e7143928-4de4-4e7f-8ec9-a0499ea11a0f" width="620" height="100" /> </p>  
+</details>
