@@ -281,7 +281,7 @@ vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api
             --privileged=true \
             --shm-size=4g \
             -p 8000:8000 \
-            -e VLLM_CPU_KVCACHE_SPACE=2GiB \      ## allocates 2GB for KV cache on CPU
+            -e VLLM_CPU_KVCACHE_SPACE=2 \      ## allocates 2GB for KV cache on CPU
             -e VLLM_CPU_OMP_THREADS_BIND=2 \      ## binds to 2 CPU cores for inference
             public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.8.5.post1 \
             --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
