@@ -259,7 +259,7 @@ VLLM_TARGET_DEVICE=cpu python setup.py install
 ```
 5. **Serve the model**
 ```bash
-   vllm server Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
+vllm server Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
 # optioanl  
 vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api-key token-abc123
 ```
