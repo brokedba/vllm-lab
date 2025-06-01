@@ -347,7 +347,7 @@ docker run --rm \
 ---
 ## III Interacting With The LLM
 ### A. Docker
-after running the vllm cpu image on docker we can Interact with the endpoint on port 8000 
+After running the vllm cpu image on docker we can Interact with the endpoint on port 8000 
 ```python
 from openai import OpenAI
 openai_api_key = "EMPTY"
