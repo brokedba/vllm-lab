@@ -2,7 +2,7 @@
 
 ## VLLM INSTALLATION
 > This section is related to Ubuntu 22.4 LTS only (WSL optionally).
-
+<p align="justified"> <img src= "https://github.com/user-attachments/assets/c127c962-bd81-4de8-aff8-f46869639f7d" width="720" height="400" /> </p> 
 ![header](https://github.com/user-attachments/assets/c127c962-bd81-4de8-aff8-f46869639f7d)
 ## Table of Contents
 
@@ -408,3 +408,26 @@ curl http://localhost:8000/v1/chat/completions \
 ```
 "The correct answer is: Argentina won the 2022 world cup."
 ```
+
+## 🛠️ Troubleshooting
+when runing a python module OpenAI endpoint and you're on CPU. 
+```nginx
+python -m vllm.entrypoints.openai.api_server --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0  --dtype bfloat16
+```
+You might see errors like:
+```nginx
+AttributeError: '_OpNamespace' '_C_utils' object has no attribute 'init_cpu_threads_env'
+```
+**Solution:**
+You may need to patch/remove this line in cpu_worker.py:
+ 
+```
+# ... snip
+torch.ops._C_utils.init_cpu_threads_env(...)
+# ... snip
+```
+>[!NOTE]
+> **Root cause**:
+> vllm.serve() and LLM(model, task=...) use different execution paths than python -m vllm.entrypoints.openai.api_server. Here’s the breakdown:
+>V0 fallback still crashes if your PyTorch doesn’t have torch.ops._C_utils.init_cpu_threads_env, which is the actual root problem.
+><p align="justified"> <img src= "https://github.com/user-attachments/assets/e7143928-4de4-4e7f-8ec9-a0499ea11a0f" width="620" height="100" /> </p>  
