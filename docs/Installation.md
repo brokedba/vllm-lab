@@ -275,8 +275,9 @@ VLLM_TARGET_DEVICE=cpu python setup.py install
 ```
 5. **Serve the model**
 ```bash
+vllm server TinyLlama/TinyLlama-1.1B-Chat-v1.0 --device cpu --dtype bfloat16
 vllm server Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
-# optioanl  
+# optional  
 vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api-key token-abc123
 ```
 <details> 
@@ -306,10 +307,10 @@ vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api
 
 2. Build image from source
 ```nginx
-$ docker build -f docker/Dockerfile.cpu --tag vllm-cpu-env --target vllm-openai .
+$ docker build -f docker/Dockerfile.cpu -t vllm-cpu-env --target vllm-openai  .
 # download the model 
 huggingface-cli login
-huggingface-cli repo download meta-llama/Llama-3.2-1B-Instruct --local-dir ./llama3
+huggingface-cli  download meta-llama/Llama-3.2-1B-Instruct --local-dir ./llama3
 
 # Launching OpenAI server 
 $ docker run --rm \
