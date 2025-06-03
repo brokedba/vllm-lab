@@ -10,6 +10,9 @@
 Make sure you’re using a lightweight model and the server will auto-fallback to CPU-safe "V0 engine":
 
 ```bash
+## Serve Using CLI
+vllm server TinyLlama/TinyLlama-1.1B-Chat-v1.0 --device cpu --dtype bfloat16
+### Using python 
 python -m vllm.entrypoints.openai.api_server \
   --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
   --dtype bfloat16
@@ -53,3 +56,38 @@ refusal=None, role='assistant', annotations=None, audio=None, function_call=None
 created=1748769021, model='TinyLlama/TinyLlama-1.1B-Chat-v1.0', object='chat.completion', service_tier=None, system_fingerprint=None, 
 usage=CompletionUsage(completion_tokens=40, pr
 ```
+---
+## Codespace
+1. click on Code button select "Create codespace on main"
+2. clone vllm repository
+```nginx
+cd vllm-lab
+# clone vllm repo
+git clone --branch v0.8.5 https://github.com/vllm-project/vllm.git vllm_source
+cd vllm_source
+3. build the docker image from cpu dockerfile
+```
+docker build -f docker/Dockerfile.cpu -t vllm-cpu-env --target vllm-openai .
+```
+4. Download the llama3 model locally after accepting terms of use from Hugging face's meta registry
+
+```
+ pip install huggingface-hub
+huggingface-cli login
+huggingface-cli download meta-llama/Llama-3.2-1B-Instruct --local-dir ./llama3
+```   
+5.Run Docker and mount it:
+```nginx
+docker run -d \
+  --privileged=true \
+  --shm-size=4g \
+  -p 8000:8000 \
+  -v "$(pwd)/llama3:/models/llama3" \
+  -e VLLM_CPU_KVCACHE_SPACE=2 \
+  -e VLLM_CPU_OMP_THREADS_BIND=0,1 \
+  vllm-cpu-env \
+  --model=/models/llama3 \
+  --dtype=bfloat16 \
+  --max-model-len=2048
+```
+
