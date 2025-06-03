@@ -307,6 +307,8 @@ vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api
 
 2. Build image from source
 ```nginx
+git clone --branch v0.8.5 https://github.com/vllm-project/vllm.git vllm_source
+cd vllm_source
 $ docker build -f docker/Dockerfile.cpu -t vllm-cpu-env --target vllm-openai  .
 # download the model 
 huggingface-cli login
