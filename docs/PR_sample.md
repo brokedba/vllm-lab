@@ -141,6 +141,8 @@ git checkout -b improve-cpu-doc
 - Install MkDocs + required plugins
   ```bash
   pip install mkdocs mkdocs-material mkdocs-include-markdown-plugin
+  OR
+  pipx install mkdocs mkdocs-material mkdocs-include-markdown-plugin
   ```
 - Preview the site
   From the root of the repo:
