@@ -30,7 +30,7 @@ pip install -v -r requirements/cpu.txt --index-url https://download.pytorch.org/
 - Using python build package (recommended)   
 
 ```bash
-# Specify kv cahe in GBi
+# Specify kv cache in GiB
 export VLLM_CPU_KVCACHE_SPACE=2
 # Check how many cores your machine have with lscpu -e (i.e values : 1,2/0-2/2)
 export VLLM_CPU_OMP_THREADS_BIND=0-4 
