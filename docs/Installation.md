@@ -3,7 +3,7 @@
 ## VLLM INSTALLATION
 > This section is related to Ubuntu 22.4 LTS only (WSL optionally).
 <p align="justified"> <img src= "https://github.com/user-attachments/assets/c127c962-bd81-4de8-aff8-f46869639f7d" width="720" height="400" /> </p> 
-![header](https://github.com/user-attachments/assets/c127c962-bd81-4de8-aff8-f46869639f7d)
+
 ## Table of Contents
 
 * [VLLM INSTALLATION](#vllm-installation)
