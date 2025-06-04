@@ -118,7 +118,7 @@ git config --global user.email "xxxx@gmail.com"
 #check 
 git config --global user.email  | or git log -1
 # clone
-git clone https://github.com/your-username/vllm.git
+git clone https://github.com/brokedba/vllm.git
 cd vllm
 ```
 **3 Create a new branch:**
@@ -140,18 +140,34 @@ git checkout -b improve-cpu-doc
 **4.2. Preview MkDocs Locally** (optional but recommended)
 - Install MkDocs + required plugins
   ```bash
-  pip install mkdocs mkdocs-material mkdocs-include-markdown-plugin
-  OR
-  pipx install mkdocs mkdocs-material mkdocs-include-markdown-plugin
+  uv venv .venv
+  source .venv/bin/activate
+  uv pip install -r ./vllm/docs/requirements.txt
   ```
 - Preview the site
   From the root of the repo:
   ```bash
   mkdocs serve
+  mkdocs serve --watch docs/getting_started/installation/cpu/build.inc.md
   ```
 - Then open: http://127.0.0.1:8000
   - Navigate to: `Getting Started` → `Installation` → `CPU` → `Intel/AMD x86`
+    
 **5. Commit and push:**
+```bash
+git remote add upstream https://github.com/vllm-project/vllm.git
+git fetch upstream
+git checkout main
+git merge upstream/main
+####
+git checkout improve-cpu-doc
+# Temporarily stash the changes, then apply them later
+git stash
+git rebase main
+# brings your changes back after rebase
+git stash pop  
+```
+
 ```bash
 git add docs/getting_started/installation/cpu/*
 git commit -s -m "docs(cpu): improve CPU(x86) build instructions and fix include path" 
@@ -164,3 +180,14 @@ git push origin improve-cpu-doc
 -  Submit!
 
 Optional: preview the MkDocs render before submitting.
+
+
+**7. Update PR after review**
+```bash
+# 1. Make your edits locally to build.inc.md or other files
+git add docs/getting_started/installation/cpu/build.inc.md
+git commit -s -m "docs(cpu): clarify torch version, fix CUDA tip and thread binding comments"
+
+# 3. Push changes to your fork
+git push origin improve-cpu-doc
+```
