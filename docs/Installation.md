@@ -197,7 +197,8 @@ uv pip install vllm --extra-index-url https://wheels.vllm.ai/${VLLM_COMMIT}
 ```
 <details>
 <summary>pip difference</summary>
-In uv, packages in `--extra-index-url` have higher priority than the default index, to install dev pre-release versions.
+
+   In uv, packages in `--extra-index-url` have higher priority than the default index, to install dev pre-release versions.
 In contrast, pip combines packages from `--extra-index-url` and the default index, choosing only the latest version.
 
 Therefore, for pip users, it requires specifying a placeholder wheel name to install a specific commit:
@@ -241,21 +242,35 @@ pip install -e .
 - Prefix-caching
 - FP8-E5M2 KV cache
 ### A. Build CPU wheel from source
+>[!tip]
+>    **Install vs Build:**
+>    - To generate a wheel for reuse or distribution, use `python -m build` then `pip install dist/*.whl`.
+>    - For in-place installs (no-wheel) and dev testing, use `uv pip install . --no-build-isolation`.
+
 **Prerequisite**
   - OS: Linux
   - Compiler: gcc/g++ >= 12.3.0 (optional, recommended)
   - Instruction Set Architecture (ISA): AVX512 (optional, recommended)
 
+>[!note]
+> Here are a few tips to avoid common issues:
+>    - **NumPy ≥2.0 error**: Downgrade using `pip install "numpy<2.0"`.
+>    - **CMake picks up CUDA**: Add `CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON` to prevent CUDA detection.
+>    - **Torch CPU wheel not resolving**: Use `--index-url` during the `requirements/cpu.txt` install.
+>    - **`torch==X.Y.Z+cpu` not found**: Set `"torch==X.Y.Z+cpu"` in [`pyproject.toml`](https://github.com/vllm-project/vllm/blob/main/pyproject.toml).
+>    - **Deprecated `setup.py install`**: Use the [PEP 517-compliant](https://peps.python.org/pep-0517/) `python -m build` instead.
+
+
 To install vLLM on CPU, you must build it from source as there are no pre-built CPU wheels ([set-up-using-python](https://docs.vllm.ai/en/latest/getting_started/installation/cpu.html#set-up-using-python), [build.inc](https://github.com/vllm-project/vllm/blob/main/docs/getting_started/installation/cpu/build.inc.md)).
 
-Which includes: 
+**Steps:**
 1. Install dependencies
 ```bash
 sudo apt-get update  -y
 sudo apt-get install -y gcc-12 g++-12 libnuma-dev python3-dev
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10 --slave /usr/bin/g++ g++ /usr/bin/g++-12
 ```
-2. clone the vLLM repo
+2. Clone the vLLM repo
 ```nginx
 git clone --branch v0.8.5 https://github.com/vllm-project/vllm.git vllm_source
 cd vllm_source
@@ -266,13 +281,42 @@ pip install --upgrade pip
 pip install "cmake>=3.26" wheel packaging ninja "setuptools-scm>=8" numpy
 pip install -v -r requirements/cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu
 ```
-4. Finally, build and install vLLM CPU backend:
-```bash
+4. Build and install vLLM:
+
+    **Option A:** Build a wheel
+   
+You can do this using one of the following methods: 
+
+- Using python `build` package (recommended)   
+```console
+# Specify kv cache in GiB
 export VLLM_CPU_KVCACHE_SPACE=2
-# check how many cores you have with lscpu -e
+# Example: to bind to the first 4 CPU cores, use '0-3'. Check available cores using: lscpu -e
 export VLLM_CPU_OMP_THREADS_BIND=0-4 
-VLLM_TARGET_DEVICE=cpu python setup.py install
+# Build the wheel
+VLLM_TARGET_DEVICE=cpu CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON python -m build --wheel --no-isolation
 ```
+- Using `uv` (fastest option)
+```
+VLLM_TARGET_DEVICE=cpu CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON  uv build --wheel
+
+```
+Install the wheel (non-editable)
+```
+uv pip install dist/*.whl
+```
+**Option B:** Install directly from source
+
+- Standard install:
+```console
+VLLM_TARGET_DEVICE=cpu CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON uv pip install . --no-build-isolation
+```
+- Editable install (with `-e` flag): 
+```console
+VLLM_TARGET_DEVICE=cpu CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON uv pip install -e . --no-build-isolation
+```
+
+
 5. **Serve the model**
 ```bash
 vllm server TinyLlama/TinyLlama-1.1B-Chat-v1.0 --device cpu --dtype bfloat16
@@ -413,7 +457,19 @@ curl http://localhost:8000/v1/chat/completions \
 ```
 
 ## 🛠️ Troubleshooting
-When runing a python module OpenAI endpoint and you're on CPU. 
+1. When creating a CPU build and receive an error such as: `Could not find a version that satisfies the requirement torch==X.Y.Z+cpu+cpu`, consider updating [pyproject.toml](https://github.com/vllm-project/vllm/blob/main/pyproject.toml) to help pip resolve the dependency.
+
+    ```toml title="pyproject.toml"
+    [build-system]
+    requires = [
+      "cmake>=3.26.1",
+      ...
+      "torch==X.Y.Z+cpu"   # <-------
+    ]
+    ```
+
+
+2. When runing a python module OpenAI endpoint and you're on CPU. 
 ```nginx
 python -m vllm.entrypoints.openai.api_server --model=TinyLlama/TinyLlama-1.1B-Chat-v1.0  --dtype bfloat16
 ```
