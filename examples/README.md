@@ -1,4 +1,4 @@
-# 🦙 Running vLLM Locally with OpenAI-Compatible API
+# 🦙 Running vLLM Locally with and without API server
 
 >[!TIP]
 >This guide shows how to run a small LLM like [TinyLlama](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0) using [vLLM](https://github.com/vllm-project/vllm) on CPU and interact with it using OpenAI-style Python clients.
