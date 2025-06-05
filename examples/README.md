@@ -22,7 +22,7 @@ python -m vllm.entrypoints.openai.api_server \
 - No token needed for public models like TinyLlama.
 
 ## 2. Check Backend (Direct vLLM Python API)
-- See file [check_backend.py](./examples/check_backend.py)
+- See file [check_backend.py](./check_backend.py)
 ```python
 python check_backend.py
 --- Answer
@@ -30,7 +30,7 @@ python check_backend.py
 ```
 
 ## 3. Completion Endpoint (OpenAI-style)
-- See file [open_ai_vllm_completion.py](./examples/open_ai_vllm_completion.py)
+- See file [open_ai_vllm_completion.py](./open_ai_vllm_completion.py)
 ```nginx
 python open_ai_vllm_completion.py
 ```
@@ -44,7 +44,7 @@ object='text_completion', system_fingerprint=None, usage=CompletionUsage(complet
 prompt_tokens=4, total_tokens=20, completion_tokens_details=None, prompt_tokens_details=None))
 ```
 ## 4. Chat Completion (OpenAI-style)
-- See file [open_ai_vllm_completion.py](./examples/open_ai_vllm_chat.py)
+- See file [open_ai_vllm_completion.py](./open_ai_vllm_chat.py)
 ```nginx
 python open_ai_vllm_chat.py
 ```
