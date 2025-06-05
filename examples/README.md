@@ -31,10 +31,20 @@ python check_backend.py
 ## 2.2  Offline inference: batch processing 
 - See file [offline_batch_test.py](./offline_batch_test.py)
 ```nginx
-python open_ai_vllm_completion.py
+python offline_batch_test.py
 ```
 Answer
-```
+```nginx
+Processed prompts: 100%|█████████████| 4/4 [00:40<00:00, 10.22s/it, est. speed input: 0.66 toks/s, output: 21.86 toks/s]
+Prompt: 'Hello, my name is', Generated text: ' [Your Name] and I am a current student at [School Name].
+...
+Prompt: 'The president of the United States is', Generated text: ' an important and influential leader in the world, with a wide range of responsibilities and opportunities.
+...
+Prompt: 'The capital of France is', Generated text: ' Paris. The national language of France is French. The national
+...
+Prompt: 'The future of AI is', Generated text: ' going to bring the benefits of automation to a new level. Automation will be able to perform many tasks that are currently performed by human workers,
+...
+
 ```
 ## 3. Completion Endpoint (OpenAI-style)
 - See file [open_ai_vllm_completion.py](./open_ai_vllm_completion.py)
