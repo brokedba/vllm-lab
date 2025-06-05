@@ -21,7 +21,7 @@ python -m vllm.entrypoints.openai.api_server \
 - Default endpoint: /v1
 - No token needed for public models like TinyLlama.
 
-## 2. Check Backend (Direct vLLM Python API)
+## 2. Offline inference : Check Backend (Direct vLLM Python API)
 - See file [check_backend.py](./check_backend.py)
 ```python
 python check_backend.py
