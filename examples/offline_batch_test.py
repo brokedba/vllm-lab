@@ -8,7 +8,7 @@ prompts = [
 ]
 
 # Initialize
-sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
+sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=256)
 llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
 
 # perform the inference
