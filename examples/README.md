@@ -21,14 +21,21 @@ python -m vllm.entrypoints.openai.api_server \
 - Default endpoint: /v1
 - No token needed for public models like TinyLlama.
 
-## 2. Offline inference : Check Backend (Direct vLLM Python API)
+## 2.1 Offline inference: Check Backend (Direct vLLM Python API)
 - See file [check_backend.py](./check_backend.py)
 ```python
 python check_backend.py
 --- Answer
 <class 'vllm.model_executor.models.llama.LlamaForCausalLM'>
 ```
-
+## 2.2  Offline inference: batch processing 
+- See file [offline_batch_test.py](./offline_batch_test.py)
+```nginx
+python open_ai_vllm_completion.py
+```
+Answer
+```
+```
 ## 3. Completion Endpoint (OpenAI-style)
 - See file [open_ai_vllm_completion.py](./open_ai_vllm_completion.py)
 ```nginx
