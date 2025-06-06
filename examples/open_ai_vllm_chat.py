@@ -12,7 +12,8 @@ chat_response = client.chat.completions.create(
     model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Tell me a joke."},
+        {"role": "user", "content": "Who won the world cup in 2022 ?"},
     ]
 )
-print("Chat response:", chat_response)
+# print("Chat response:", chat_response)
+print("Chat response:",chat_response.choices[0].message)
