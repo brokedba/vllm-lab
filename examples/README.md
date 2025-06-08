@@ -28,12 +28,27 @@ python check_backend.py
 --- Answer
 <class 'vllm.model_executor.models.llama.LlamaForCausalLM'>
 ```
-## 2.2  Offline inference: batch processing 
+## 2.2 Curl Test the completion**
+```
+ curl http://localhost:8000/v1/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        "prompt": "San Francisco is a",
+        "max_tokens": 10,
+        "temperature": 0
+    }' | jq .choices[].text
+``` 
+- Answer
+```
+" great place to start. The city is home to"
+```
+## 2.3  Offline inference: batch processing 
 - See file [offline_batch_test.py](./offline_batch_test.py)
 ```nginx
 python offline_batch_test.py
 ```
-Answer
+- Answer
 ```nginx
 Processed prompts: 100%|█████████████| 4/4 [00:40<00:00, 10.22s/it, est. speed input: 0.66 toks/s, output: 21.86 toks/s]
 Prompt: 'Hello, my name is', Generated text: ' [Your Name] and I am a current student at [School Name].
@@ -51,7 +66,7 @@ Prompt: 'The future of AI is', Generated text: ' going to bring the benefits of 
 ```nginx
 python open_ai_vllm_completion.py
 ```
-Answer
+- Answer
 ```nginx
 Completion(id='cmpl-99f2688873b643d9a9c7a170778d82bc', 
 choices=[CompletionChoice(finish_reason='length', index=0, logprobs=None, 
@@ -65,7 +80,7 @@ prompt_tokens=4, total_tokens=20, completion_tokens_details=None, prompt_tokens_
 ```nginx
 python open_ai_vllm_chat.py
 ```
-Answer
+- Answer
 ```nginx
 Chat response: ChatCompletion(id='chatcmpl-ff3e2358b4014b7ca4e45b901803c032', choices=[Choice(finish_reason='stop', index=0, logprobs=None, 
 message=ChatCompletionMessage(content="Sure thing! Here's a funny joke:\n\nQ: What do you call a bird stuck in a tree?\n\nA: A hen with a thousand eggs.", 
