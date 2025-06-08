@@ -390,8 +390,12 @@ docker run --rm \
  ## --api-key supersecretkey  (require a key from clients to access the model) 
  
 ```
+### B. Set up using k8s (manifests)
+- [Oracle Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/civo)
+- [Civo Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/oci)
 > To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
 ---
+
 ## III Interacting With The LLM
 ### A. Docker
 After running the vllm cpu image on docker we can Interact with the endpoint on port 8000 
