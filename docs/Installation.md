@@ -19,6 +19,7 @@
     * [2. Install On CPU](#3-install-on-cpu)
         * [A. Build CPU wheel from source](#A-build-cpu-wheel-from-source)
         * [B. Set up using Docker](#B-set-up-using-docker)
+        * [C. Set up using k8s (manifests)](#C-Set-up-using-k8s-(manifests))
 * [III INTERACTING WITH THE LLM](#iii-interacting-with-the-llm)
 ### Requirements
 
@@ -390,10 +391,12 @@ docker run --rm \
  ## --api-key supersecretkey  (require a key from clients to access the model) 
  
 ```
-### B. Set up using k8s (manifests)
+> To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
+
+### C. Set up using k8s (manifests)
 - [Oracle Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/civo)
 - [Civo Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/oci)
-> To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
+
 ---
 
 ## III Interacting With The LLM
