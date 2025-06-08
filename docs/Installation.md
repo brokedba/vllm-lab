@@ -252,6 +252,8 @@ pip install -e .
   - OS: Linux
   - Compiler: gcc/g++ >= 12.3.0 (optional, recommended)
   - Instruction Set Architecture (ISA): AVX512 (optional, recommended)
+    > AMD: You need 4th gen processors (Zen 4, 9000x series) or higher to support full AVX512 insutruction set to run vLLM inference (otherwise exit 132)
+    >  3rd Generation AMD EPYC processors (Milan) "do not support AVX-512 instructions."  
 
 >[!note]
 > Here are a few tips to avoid common issues:
