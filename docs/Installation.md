@@ -394,8 +394,8 @@ docker run --rm \
 > To avoid needing [HF credentials ](https://huggingface.co/settings/tokens.) use the following models: TinyLlama/TinyLlama-1.1B-Chat-v1.0 , mistralai/Mistral-7B-Instruct-v0.1, TheBloke/OpenHermes-2.5-Mistral-GGUF
 
 ### C. Set up using k8s
-- [Oracle Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/civo)
-- [Civo Cloud] (https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/oci)
+- [Oracle Cloud](https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/civo)
+- [Civo Cloud](https://github.com/brokedba/vllm-lab/tree/main/examples/k8s/oci)
 
 ---
 
