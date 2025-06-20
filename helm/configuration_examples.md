@@ -1,17 +1,16 @@
 # Helm Production Values for vLLM Stack
 ## Table of Contents
 
-1. [Helm Production Values for vLLM Stack](#helm-production-values-for-vllm-stack)
-   1. [Core Components Configuration](#i-core-components-configuration)
-      1. [Serving Engine Specification](#1-serving-engine-specification)
-      2. [Router Specification](#2-router-specification)
-      3. [Cache Server Specification](#3-cache-server-specification)
-      4. [Shared Storage Configuration](#4-shared-storage-configuration)
-      5. [LoRA Controller (Optional)](#5-lora-controller-optional)
-   2. [Production-Ready Strategy Configurations](#production-ready-strategy-configurations)
-      1. [Engine Strategy](#1-engine-strategy)
-      2. [Router Strategy](#2-router-strategy)
-   3. [Complete Production Example](#complete-production-example)
+1. [Core Components Configuration](#i-core-components-configuration)
+   1. [Serving Engine Specification](#1-serving-engine-specification)
+   2. [Router Specification](#2-router-specification)
+   3. [Cache Server Specification](#3-cache-server-specification)
+   4. [Shared Storage Configuration](#4-shared-storage-configuration)
+   5. [LoRA Controller (Optional)](#5-lora-controller-optional)
+2. [Production-Ready Strategy Configurations](#production-ready-strategy-configurations)
+   1. [Engine Strategy](#1-engine-strategy)
+   2. [Router Strategy](#2-router-strategy)
+3. [Complete Production Example](#complete-production-example)
 
 ## I. Core Components Configuration
 ### 1. Serving Engine Specification
