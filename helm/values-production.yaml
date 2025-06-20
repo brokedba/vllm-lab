@@ -1,0 +1,117 @@
+global:
+  imagePullSecrets:
+    - name: "docker-registry-secret"
+
+servingEngineSpec:
+  enableEngine: true
+  repository: "vllm/vllm-openai"
+  tag: "v0.4.2"
+  imagePullPolicy: "IfNotPresent"
+  containerPort: 8000
+  servicePort: 8000
+  
+  resources:
+    requests:
+      cpu: "4"
+      memory: "16Gi"
+      nvidia.com/gpu: "1"
+    limits:
+      cpu: "8"
+      memory: "32Gi"
+      nvidia.com/gpu: "1"
+  
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    timeoutSeconds: 10
+    failureThreshold: 3
+    
+  startupProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 30
+    timeoutSeconds: 15
+    failureThreshold: 10
+  
+  runtimeClassName: "nvidia"
+  tolerations:
+    - key: "nvidia.com/gpu"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+  
+  modelSpec:
+    - name: "production-model"
+      modelPath: "/shared-storage/models/llama-2-13b-chat"
+      maxModelLen: 4096
+
+routerSpec:
+  enableRouter: true
+  replicaCount: 3
+  repository: "lmcache/lmstack-router"
+  tag: "latest"
+  containerPort: 8080
+  servicePort: 80
+  serviceType: "ClusterIP"
+  
+  resources:
+    requests:
+      cpu: "1"
+      memory: "2Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+  
+  routingLogic: "least_connections"
+  serviceDiscovery: "k8s"
+  
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: "api.vllm.production.com"
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+    tls:
+      - secretName: "vllm-api-tls"
+        hosts:
+          - "api.vllm.production.com"
+
+cacheserverSpec:
+  enabled: true
+  repository: "lmcache/lmstack-cache"
+  tag: "latest"
+  containerPort: 8081
+  servicePort: 8081
+  
+  resources:
+    requests:
+      cpu: "1"
+      memory: "4Gi"
+    limits:
+      cpu: "2"
+      memory: "8Gi"
+
+sharedStorage:
+  enabled: true
+  size: "500Gi"
+  storageClass: "premium-ssd"
+  accessModes:
+    - "ReadWriteMany"
+  nfs:
+    server: "10.0.1.100"
+    path: "/exports/vllm-production"
+
+engineStrategy:
+  type: "RollingUpdate"
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 1
+
+routerStrategy:
+  type: "RollingUpdate"
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 2
