@@ -1,4 +1,4 @@
-## VLLM Prodiction-stack helm chart configuration
+## VLLM Production-stack helm chart configuration
  📍This document describes the configurable values available for the `LMCache` production-stack Helm chart.
 | Key                               | Description                                                                                                                               | Type     | Default                 |
 | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- | :------- | :---------------------- |
