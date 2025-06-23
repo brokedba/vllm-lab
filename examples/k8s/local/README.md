@@ -20,6 +20,26 @@
    ```
 3. vLLM engine Depoyment
    ```nginx
-   
+  
    ```
+## 🛠️ Troubleshooting
+### AMD minimum requirement
+>[!warning]
+> 3rd Generation AMD EPYC processors (Milan) "do not support AVX-512 instructions.
 
+ You need at least 4th gen processors (Zen 4) or higher to support full AVX512 insutruction set to run vLLM inference.
+ otherwise you wil receive the below exit 132. 
+ ```
+ State:       Waiting
+ Reason:      CrashLoopBackOff
+ Exit Code:   132
+❌ Illegal instruction (e.g., AVX512 or BF16 ops on older CPUs).
+ ```
+**Root Cause:**
+
+✅ Supports: AVX2, FMA, SSE
+❌ Does NOT support: AVX-512, BF16 (bfloat16), AMX / VNNI
+
+**Solution**
+- Choose a newer generation
+- Of use `--dtype=float32` in your vLLM deployment
