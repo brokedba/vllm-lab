@@ -26,8 +26,7 @@
 ### 1. Resource starvation
 If you have errors such as:
 ```
-pod default/vllm-cpu-deployment-router-f6d6bc958-hszr2
-│ Events:
+│ Events: pod default/vllm-cpu-deployment-router-f6d6bc958-hszr2
 ││ Type    Reason           Age  From                                     Message                                  ││
    ----    ---------------- ---- ----------------- ------------------------------------------------------------------
 ││ Warning FailedScheduling 39m  default-scheduler 0/2 nodes are available: 1 Insufficient cpu, 2 Insufficient memory.
