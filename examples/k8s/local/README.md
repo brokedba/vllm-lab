@@ -52,5 +52,4 @@ If you have errors such as:
 ❌ Does NOT support: AVX-512, BF16 (bfloat16), AMX / VNNI
 
 **Solution**
-- Choose a newer generation
-- Of use `--dtype=float32` in your vLLM deployment
+- Choose a newer generation 
