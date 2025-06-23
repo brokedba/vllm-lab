@@ -47,9 +47,12 @@ If you have errors such as:
 ❌ Illegal instruction (e.g., AVX512 or BF16 ops on older CPUs).
  ```
 **Root Cause:**
+Old CPUs (AMD < 3gen, Intel Xeon < Phi x200 , Intel < Skylake-SP / Skylake-X)
 
 ✅ Supports: AVX2, FMA, SSE
+
 ❌ Does NOT support: AVX-512, BF16 (bfloat16), AMX / VNNI
+
 
 **Solution**
 - Choose a newer generation 
