@@ -23,9 +23,21 @@
   
    ```
 ## 🛠️ Troubleshooting
-### AMD minimum requirement
+### 1. Resource starvation
+If you have errors such as:
+```
+pod default/vllm-cpu-deployment-router-f6d6bc958-hszr2
+│ Events:
+││ Type    Reason           Age  From                                     Message                                  ││
+   ----    ---------------- ---- ----------------- ------------------------------------------------------------------
+││ Warning FailedScheduling 39m  default-scheduler 0/2 nodes are available: 1 Insufficient cpu, 2 Insufficient memory.
+││                               preemption: 0/2 nodes are available: 2 No preemption victims found for incoming pod.
+```
+**Solution**
+- Use lightweight prod-stack configuration [cpu-tinyllama-values.yaml](./cpu-tinyllama-values.yaml) ➡️`tested on a 4 CPU 7.4GB RAM node`
+### 2. AMD minimum requirement
 >[!warning]
-> 3rd Generation AMD EPYC processors (Milan) "do not support AVX-512 instructions.
+> 3rd Generation AMD EPYC processors (Milan) do not support AVX-512 instructions.
 
  You need at least 4th gen processors (Zen 4) or higher to support full AVX512 insutruction set to run vLLM inference.
  otherwise you wil receive the below exit 132. 
