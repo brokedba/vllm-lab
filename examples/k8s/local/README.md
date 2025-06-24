@@ -4,6 +4,17 @@
 - You can now easily start with a minimal, CPU-only vLLM stack right on your laptop's k8s using the official pre-built vllm CPU image from [AWS ECR](https://gallery.ecr.aws/q9t5s3a7/vllm-cpu-release-repo).
 
 ### 1. Production-stack Deployment Steps
+- Prerequisite:
+Install Helm:
+   ```nginx
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    sudo ./get_helm.sh 
+    ls -l /usr/local/bin/helm
+    ln -s /usr/local/bin/helm /usr/bin/helm
+    which helm
+   ```
+
 1. Prerequisites Deployment
    ```nginx
    $ Kubectl apply -f deployment_cpu-prereqs.yml
