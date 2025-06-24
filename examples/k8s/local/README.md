@@ -22,10 +22,8 @@ A. Install Helm:
    - (OPTIONAL) local-path-provisioner ( if no storage class exists)
    ```nginx
    # 1. Install the local-path-provisioner Helm chart:
-   helm repo add longhorn https://charts.longhorn.io
-   helm repo update
-   helm install local-path longhorn/local-path-provisioner --namespace local-path-storage --create-namespace
-
+    kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.31/deploy/local-path-storage.yaml
+   
    # 2. Set local-path as the default StorageClass
    kubectl patch storageclass local-path -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
    ```
