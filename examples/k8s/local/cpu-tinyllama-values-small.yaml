@@ -16,7 +16,7 @@ servingEngineSpec:
     limitMemory: "6Gi"
     pvcStorage: "10Gi"
     vllmConfig:
-      dtype: "float32"
+      dtype: "bfloat16"
       extraArgs:
         - "--device"
         - "cpu"
