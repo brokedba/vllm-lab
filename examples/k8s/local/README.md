@@ -75,3 +75,23 @@ Old CPUs (AMD < 3gen, Intel Xeon < Phi x200 , Intel < Skylake-SP / Skylake-X)
 
 **Solution**
 - Choose a newer generation 
+### 1. CrashLoopBackOff Exit Code 132:
+
+**Root cause:**
+```
+Describe(default/vllm-cpu-tinyllama-cpu-deployment-vllm-6f5f7776f9-lzbhh) 
+   State:          Waiting                                                                                                              ││       Reason:       CrashLoopBackOff                                                                                                ││     Last State:     Terminated                                                                                                      ││       Reason:       Error                                                                                                            ││       Exit Code:    132      
+Startup probe failed: ... connection refused
+log of the container :
+ INFO 06-24 23:08:54 [__init__.py:239] Automatically detected platform cpu.                                                              ││ Stream closed EOF for default/vllm-cpu-tinyllama-cpu-deployment-vllm-6f5f7776f9-lzbhh (vllm) 
+```
+ This points to a classic Illegal Instruction (SIGILL) error, which is often related to CPU instruction set compatibility.
+
+ 1. **Debugging**
+ ```nginx
+kubectl debug -it node/localhost.localdomain --image=public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:v0.8.5.post1 -- bash
+# Once inside
+python -c "import torch, platform, subprocess, os; print(platform.processor());"
+x86_64
+```
+-  If it runs successfully and prints processor info: This means the base image and PyTorch can run without SIGILL. The issue might then be specific to vLLM's initialization, or related to the environment where the main vLLM process runs (e.g., startup scripts, arguments).   
