@@ -75,7 +75,7 @@ Old CPUs (AMD < 3gen, Intel Xeon < Phi x200 , Intel < Skylake-SP / Skylake-X)
 
 **Solution**
 - Choose a newer generation 
-### 1. CrashLoopBackOff Exit Code 132:
+### 3. CrashLoopBackOff Exit Code 132:
 
 **Root cause:**
 ```
