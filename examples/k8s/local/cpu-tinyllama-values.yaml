@@ -1,5 +1,6 @@
 servingEngineSpec:  
   enableEngine: true  
+  runtimeClassName: ""  # Use default runtime for CPU 
   containerSecurityContext:  
     privileged: true  
   modelSpec:  
