@@ -322,8 +322,8 @@ VLLM_TARGET_DEVICE=cpu CMAKE_DISABLE_FIND_PACKAGE_CUDA=ON uv pip install -e . --
 
 5. **Serve the model**
 ```bash
-vllm server TinyLlama/TinyLlama-1.1B-Chat-v1.0 --device cpu --dtype bfloat16
-vllm server Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
+vllm serve TinyLlama/TinyLlama-1.1B-Chat-v1.0 --device cpu --dtype bfloat16
+vllm serve Qwen/Qwen2.5-Coder-1.5B-Instruct --device cpu
 # optional  
 vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --device cpu --api-key token-abc123
 ```
