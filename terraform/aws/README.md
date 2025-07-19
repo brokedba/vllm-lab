@@ -174,10 +174,30 @@ kubectl -n vllm get svc
 - Login: admin / <terraform output grafana_admin_password>.
 
 ## Troubleshooting
-- check calico
+Calico
 ```bash
 # Calico pods (overlay CNI)
 kubectl -n tigera-operator get pods
+```
+**[Ordering issue with AWS Load Balancer Controller](https://github.com/aws-ia/terraform-aws-eks-blueprints-addons/issues/233)**
+
+🎯 Root cause
+With LBC ≥ 2.5.1 the chart enables a MutatingWebhook that intercepts every Service of type LoadBalancer: 
+<img width="2162" height="433" alt="image" src="https://github.com/user-attachments/assets/10e00422-436b-4003-a6de-e1edee912da7" />
+>[!NOTE]
+>As a result addons that have services (i.e cert manager)  may timeout waiting for the webhook to be available.
+>```bash
+>no endpoints available for service "aws-load-balancer-webhook-service"
+>```
+
+**Fix** 
+
+Users can safely turn off the webhook if they are not using the `serviceType: LoadBalancer` in any of their software. If they are using it then they should deploy the LBC add-on first then the rest (**terraform apply twice**).
+```nginx
+# in your blueprints-addons block
+aws_load_balancer_controller = {
+  enable_service_mutator_webhook = false   # turns off the webhook
+}
 ```
 ## Destroy
 ```bash
