@@ -45,7 +45,7 @@ export AWS_PROFILE=myprofile         # ← Terraform exec auth uses this
 * Custom /16 VPC with three public & three private subnets
 * 1 NAT GW (single-AZ to save cost)
 * Kubernetes-friendly subnet tags
-* **Calico overlay CNI** as primary (VXLAN encapsulation) replaces the default AWS VPC CNI (⇒ ~250 pods / node)  
+* **Calico overlay CNI** as primary (VXLAN encapsulation) replaces the default AWS VPC CNI (⇒ 110 pods / node)  
 ### 2. EKS Cluster
 *  Control plane v1.30
 *  Two managed node-groups & Instance Types
