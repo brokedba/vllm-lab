@@ -200,18 +200,18 @@ aws_load_balancer_controller = {
 }
 ```
 ## Destroy
+> If you face terraform destroy VPC  DependencyViolation issues because of a Load Balancer creation outside terraform, 
+use the following commands to delete the ALB manually first:
 ```bash
-# Tear down add-ons first (releases ALBs / ENIs)
-terraform destroy -target module.eks_blueprints_addons -auto-approve
+ # 1. load balancer 
+ alb_arn=$(aws elbv2 describe-load-balancers \
+   --names <Balancer-name> \
+  --query 'LoadBalancers[0].LoadBalancerArn' \
+  --output text --region <region> --profile profile_name)
+# delete :
+aws elbv2 delete-load-balancer --load-balancer-arn "$alb_arn" --region <region> --profile profile_name 
 
-# Then the cluster
-terraform destroy -target module.eks -auto-approve
-
-# Finally the VPC and leftovers
-terraform destroy -auto-approve
-```
-If the VPC still shows DependencyViolation, run:
-```
+# 2. security groups
 # list orphan SGs (non-default)
 aws ec2 describe-security-groups \
   --filters Name=vpc-id,Values=$VPC_ID \
