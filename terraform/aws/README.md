@@ -130,6 +130,17 @@ terraform apply
 </details>
 
 ## Configuration knobs
+### 🛠️ Configuration Highlights
+
+| Variable               | Default        | Description                 |
+|------------------------|----------------|-----------------------------|
+| `region`               | `us-east-2`    | AWS Region                 |
+| `pod_cidr`             | `192.168.0.0/16` | Pod overlay network        |
+| `inference_hardware`   | `cpu \| gpu`   | Select node pools           |
+| `enable_efs_csi_driver`| `true`         | Shared storage              |
+| `enable_vllm`          | `true`         | Deploy stack                |
+| `hf_token`             | **«secret»**   | HF model download token     |
+
 Variable	Default	Description
 region	us-east-2	AWS region
 inference_hardware	cpu	set gpu to enable GPU node group
