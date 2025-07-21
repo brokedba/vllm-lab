@@ -103,6 +103,11 @@ via terraform-aws-eks-**blueprints-addons**
 └── README.md                          # ← you are here                  
 
 ```
+<div align="center">
+<img width="703" height="676"  alt="image" src="https://github.com/user-attachments/assets/20a719c9-7a7e-4689-8b15-acfd84448f21" />
+<p><em>Figure-1 dependency chain of vllm stack cpu resource</em></p>
+</div>
+
 ## Quick start
 ```bash
 # 1. Clone
