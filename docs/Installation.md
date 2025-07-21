@@ -133,7 +133,7 @@ $ nvidia-smi.exe
 ```
 
 ### 3. Create the Environment
-Using vu
+Using UV
 ```bash
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
