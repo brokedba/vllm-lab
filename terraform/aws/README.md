@@ -165,8 +165,20 @@ curl -s http://localhost:8080/v1/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"TinyLlama/TinyLlama-1.1B-Chat-v1.0","prompt":"Once upon a time,","max_tokens":10}' | jq 
 ```
+4. Using ingress
+```nginx
+$ k get ingress -n vllm -o json| jq -r .items[0].status.loadBalancer.ingress[].hostname
+k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com
 
-4. TinyLlama service
+curl http://k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com:8000/v1/completions -H "Content-Type: application/json"     -d '{
+        "model": "/data/TinyLlama",
+        "prompt": "San Francisco is a",
+        "max_tokens": 10,
+        "temperature": 0
+    }' | jq .choices[].text
+
+```
+5. TinyLlama service
 ```
 kubectl -n vllm get svc
 ```
