@@ -170,12 +170,12 @@ curl -s http://localhost:8080/v1/completions \
 $ k get ingress -n vllm -o json| jq -r .items[0].status.loadBalancer.ingress[].hostname
 k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com
 
-curl http://k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com:8000/v1/completions -H "Content-Type: application/json"     -d '{
-        "model": "/data/TinyLlama",
+curl http://k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com/v1/completions     -H "Content-Type: application/json"     -d '{
+        "model": "/data/models/tinyllama",
         "prompt": "San Francisco is a",
         "max_tokens": 10,
         "temperature": 0
-    }' | jq .choices[].text
+    }'| jq .choices[].text
 
 ```
 5. TinyLlama service
