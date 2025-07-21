@@ -9,7 +9,7 @@ environment** on Amazon EKS with Terraform.
 >  Ultra-light blueprint to spin up an **EKS 1.30** cluster, swap the default
 > AWS VPC CNI for a full-overlay **Calico** network, and deploy a CPU-GPU
 > **vLLM** serving engine (TinyLlama) – all from Terraform.
- 
+
 ## 📋 Table of Contents
 
 1. [Prerequisites](#prerequisites)  
@@ -30,15 +30,19 @@ environment** on Amazon EKS with Terraform.
 | **helm** | ≥ 3.14 | used by `helm_release` |
 | **jq** | optional | JSON helper |
 | **openssl / base64** | optional | secret helpers |
----
-
 ```bash
 brew install terraform awscli kubectl helm jq
 aws configure --profile myprofile
 export AWS_PROFILE=myprofile         # ← Terraform exec auth uses this
 ```
+---
+
 ## 🏗️ What Terraform ships
- 
+<div align="center">
+<img width="266" height="496" alt="image" src="https://github.com/user-attachments/assets/47123e7d-5d30-448d-9266-ba7082403d3b" />
+<p><em>Figure-1 dependency chain of the eks addon layer </em></p>
+</div>  
+
 * IaC only (no imperative kubectl except for troubleshooting)
 ### 1. Networking
 *  (public + private subnets, NAT, IAM roles, etc.)
