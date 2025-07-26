@@ -97,6 +97,7 @@ cd vllm-lab
 # clone vllm repo
 git clone --branch v0.8.5 https://github.com/vllm-project/vllm.git vllm_source
 cd vllm_source
+```
 3. build the docker image from cpu dockerfile
 ```
 docker build -f docker/Dockerfile.cpu -t vllm-cpu-env --target vllm-openai .
@@ -108,7 +109,8 @@ docker build -f docker/Dockerfile.cpu -t vllm-cpu-env --target vllm-openai .
 huggingface-cli login
 huggingface-cli download meta-llama/Llama-3.2-1B-Instruct --local-dir ./llama3
 ```   
-5.Run Docker and mount it:
+5. Run Docker and mount it:
+
 ```nginx
 docker run -d \
   --privileged=true \
