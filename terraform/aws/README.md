@@ -174,6 +174,13 @@ curl -s http://localhost:8080/v1/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"TinyLlama/TinyLlama-1.1B-Chat-v1.0","prompt":"Once upon a time,","max_tokens":10}' | jq 
 ```
+When model loaded locally using init-container:
+```
+bash
+curl -s http://localhost:8080/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"/data/models/tinyllama","prompt":"Once upon a time,","max_tokens":10}' | jq 
+```
 4. Using ingress
 ```nginx
 $ k get ingress -n vllm -o json| jq -r .items[0].status.loadBalancer.ingress[].hostname
