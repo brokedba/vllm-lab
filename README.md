@@ -1,5 +1,7 @@
 # vLLM Lab 🚀
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/brokedba/vllm-lab)  
 
+🔍 Chat💬 now with my repo using DeepWiki! Ask your questions directy to a RAG✨ like version of my code.
 ## Overview 📌
 
 This repository contains Terraform configurations for deploying [vLLM](https://github.com/vllm-project/vllm) on Kubernetes clusters across multiple cloud providers, including Civo, Oracle Cloud (OCI), AWS, GCP, and Azure. This setup is based on the [llmcache vllm production-stack](https://github.com/llmcache/vllm-production-stack) project.
