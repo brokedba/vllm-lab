@@ -11,12 +11,11 @@ This repository contains Terraform configurations for deploying [vLLM](https://g
 
 ## Supported Platforms 🌎
 
-- **Civo Kubernetes** ☁️
-- **Oracle Cloud (OCI) OKE** 🏛️
 - **Amazon Web Services (AWS) EKS** 🟠
-- **Google Cloud Platform (GCP) GKE** 🔵
-- **Microsoft Azure AKS** 🔷
-
+- **Microsoft Azure AKS** 🔷  
+- **Google Cloud Platform (GCP) GKE** 🔵🟡🟢🔴
+- **Oracle Cloud (OCI) OKE** ⭕
+- **Civo Kubernetes** ☁️
 ## VLLM Features ✨
 - **PagedAttention 🚀**: Enables efficient memory management to handle large context sizes, reducing redundant computation and maximizing GPU utilization.
 - **Continuous Batching 📦**: Dynamically schedules incoming requests for maximum throughput.
