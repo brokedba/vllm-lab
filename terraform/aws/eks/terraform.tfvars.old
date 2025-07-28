@@ -1,0 +1,95 @@
+# eks/terraform.tfvars 
+################################################################################
+# EKS Cluster Configuration
+###############################################################################
+# 📍 Region & global tags
+###############################################################################
+region = "us-east-2" # default
+
+tags = {
+  Project     = "vllm-production-stack"
+  Environment = "production"
+  Team        = "LLMOps"
+  Application = "ai-inference"
+  CostCenter  = "AI-1234"
+}
+
+###############################################################################
+# 🌐 VPC (create new)
+###############################################################################
+# Create new VPC or use existing one uncomment the lines to use an existing VPC
+# create_vpc = false
+# vpc_id     = "vpc-0abcd1234ef567890" 
+create_vpc           = true
+vpc_id               = ""
+vpc_name             = "vllm-vpc-prod"
+vpc_cidr             = "10.0.0.0/16"
+vpc_azs              = ["us-east-2a", "us-east-2b", "us-east-2c"] # default ["us-east-1b", "us-east-1c"] # default
+public_subnet_cidrs  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+private_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+
+###############################################################################
+# ☸️  EKS cluster basics
+###############################################################################
+cluster_name    = "vllm-eks-prod"
+cluster_version = "1.30"
+
+# Pod & Service CIDRs (keep Calico overlay in sync)
+pod_cidr     = "10.244.0.0/16"
+service_cidr = "10.96.0.0/16"
+
+# Public API endpoint restricted to office VPN / CI runners
+api_public_access       = true
+api_private_access      = true
+api_public_access_cidrs = ["🔶YOUR.VPN.IP.BLOCK/32"]
+
+###############################################################################
+# ⚙️  Node-group sizing
+###############################################################################
+inference_hardware    = "cpu" # change to "gpu" when you need GPU pool
+cpu_node_min_size     = 1
+cpu_node_max_size     = 3
+cpu_node_desired_size = 2
+
+# GPU pool (ignored unless inference_hardware = "gpu")
+gpu_node_min_size     = 1
+gpu_node_max_size     = 1
+gpu_node_desired_size = 1
+
+###############################################################################
+# 🔐  cert-manager / Let’s Encrypt
+###############################################################################
+enable_cert_manager                = true
+enable_cert_manager_cluster_issuer = true
+letsencrypt_email                  = "ops@example.com"
+cert_manager_route53_hosted_zone_arns = [
+  "arn:aws:route53:::hostedzone/🔶Z123EXAMPLE",
+]
+
+###############################################################################
+# 📈  Observability
+###############################################################################
+enable_prometheus     = true
+enable_metrics_server = true
+
+###############################################################################
+# 🔑  External Secrets
+###############################################################################
+enable_external_secrets = true
+
+###############################################################################
+# 💾  Storage CSI drivers
+###############################################################################
+enable_ebs_csi_driver = true
+enable_efs_csi_driver = false # flip to true if you mount EFS
+
+###############################################################################
+# 🤖  NVIDIA setup selector
+#   • plugin  -> device-plugin only
+#   • operator_no_driver -> GPU Operator (driver disabled)
+#   • operator_custom -> GPU Operator with your YAML
+###############################################################################
+nvidia_setup = "plugin"
+
+# GPU Operator Helm values YAML
+# gpu_operator_file = "${path.module}/modules/llm-stack/helm/gpu/gpu-operator-values.yaml"
