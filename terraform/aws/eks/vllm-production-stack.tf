@@ -83,8 +83,8 @@ data "template_file" "vllm_values" {
     count = var.enable_vllm ? 1 : 0  
   template = file(
   var.inference_hardware == "gpu"
-  ? var.gpu_vllm_helm_config  # Use the gpu helm values here
-  : var.cpu_vllm_helm_config  # Use the cpu helm values here
+  ? "${path.module}/${var.gpu_vllm_helm_config}"
+  : "${path.module}/${var.cpu_vllm_helm_config}"  # Concatenate path.module and the variable
 )   
   vars = {  
     # Add any variables your template needs  

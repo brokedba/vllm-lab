@@ -389,11 +389,11 @@ variable "hf_token" {
 variable "cpu_vllm_helm_config" {
   description = "Path to the Helm chart values template for CPU inference."
   type        = string
-  default     = "${path.module}/modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress.tpl"
+  default     = "modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress.tpl"
 }
 
 variable "gpu_vllm_helm_config" {
   description = "Path to the Helm chart values template for GPU inference."
   type        = string
-  default     = "${path.module}/modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress.tpl"
+  default     = "modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress.tpl"
 }
