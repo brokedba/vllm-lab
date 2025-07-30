@@ -112,6 +112,43 @@ via terraform-aws-eks-**blueprints-addons**
 <p><em>Figure-1 dependency chain of vllm stack cpu resource</em></p>
 </div>
 
+## AWS EC2 GPU-Enabled Instance Types
+
+# AWS EC2 GPU-Enabled Instances  
+(T4 · V100 · A100 · A10G)
+
+| AWS EC2 Instance | vCPUs | Memory (GiB) | GPUs | GPU Memory (GiB) | Best For |
+|---|---|---|---|---|---|
+| **NVIDIA Tesla T4** |
+| `g4dn.xlarge`   | 4  | 16  | 1 | 16 | Small inference |
+| `g4dn.2xlarge`  | 8  | 32  | 1 | 16 | Medium inference |
+| `g4dn.4xlarge`  | 16 | 64  | 1 | 16 | Large inference |
+| `g4dn.12xlarge` | 48 | 192 | 4 | 64 | Multi-GPU inference |
+| **NVIDIA Tesla V100** |
+| `p3.2xlarge`  | 8  | 61  | 1 | 16 | Training & inference |
+| `p3.8xlarge`  | 32 | 244 | 4 | 64 | Multi-GPU training |
+| `p3.16xlarge` | 64 | 488 | 8 | 128 | Large-scale training |
+| **NVIDIA A100** |
+| `p4d.24xlarge` | 96 | 1 152 | 8 | 320 | Large-scale AI training |
+| **NVIDIA A10G** |
+| `g5.xlarge`   | 4  | 16  | 1 | 24 | General GPU workloads |
+| `g5.2xlarge`  | 8  | 32  | 1 | 24 | Medium GPU workloads |
+| `g5.4xlarge`  | 16 | 64  | 1 | 24 | Large GPU workloads |
+| `g5.8xlarge`  | 32 | 128 | 1 | 24 | Large-scale inference |
+| `g5.12xlarge` | 48 | 192 | 4 | 96 | Multi-GPU training |
+| `g5.24xlarge` | 96 | 384 | 4 | 96 | Ultra-large-scale training |
+| `g5.48xlarge` | 192| 768 | 8 | 192| Extreme-scale training |
+
+---
+
+### GPU Specifications  
+| GPU Type           |  Best For                         | Relative Cost |
+|--------------------|----------------------------------|---------------|
+| NVIDIA Tesla T4    | ML inference, small-scale training | $             |
+| NVIDIA Tesla V100  | Large-scale ML training & inference | $$$           |
+| NVIDIA A100        | Cutting-edge AI workloads        | $$$$          |
+| NVIDIA A10G        | Balanced GPU workloads           | $$            |
+
 ## Quick start
 ```bash
 # 1. Clone
