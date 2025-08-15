@@ -76,12 +76,8 @@ terraform apply -auto-approve
 
 #### 5. Deploy vLLM 🧠
 
-Once the Kubernetes cluster is up, deploy `vLLM` using Helm:
+Once the Kubernetes cluster is up, `vLLM` is deployed autoamically using terraform Helm resource. You will have two options run on CPU or GPU. See EKS example  [here](https://github.com/brokedba/vllm-lab/tree/main/terraform/aws) 
 
-```bash
-helm repo add vllm https://vllm-project.github.io/helm-charts/
-helm install vllm vllm/vllm --namespace vllm --create-namespace
-```
 
 ## Structure 📂
 
