@@ -404,7 +404,7 @@ kubectl -n tigera-operator get pods
 
 In rare cases, you may need to manually clean up some AWS resources while running terraform destroy. Here are the most common scenarios:
 
-**1. load balancer blocking public subnets/igw deletion** 
+**1️⃣. load balancer blocking public subnets/igw deletion** 
 
 If using ingress and encountering VPC deletion issues due to an LB creation outside terraform, run the below cleanup commands:
 ```bash
@@ -426,7 +426,7 @@ VPC_ID=$(aws ec2 describe-vpcs --query 'Vpcs[?Tags[?Key==`Name` && Value==`vllm-
 aws ec2 describe-security-groups --filters Name=vpc-id,Values=${VPC_ID} --query "SecurityGroups[?starts_with(GroupName, 'k8s-') || contains(GroupName, 'vllm')].GroupId"    --output text    --profile ${PROFILE} |  tr -s '[:space:]' '\n' |  xargs -r -I{} aws ec2 delete-security-group --group-id {} --profile ${PROFILE}
 ```
 
-**2. vllm namespace**
+**2️⃣. vllm namespace**
 
 If the vLLM namespace gets stuck in "Terminating" state, you might need to patch some finalizers  
 ```bash
@@ -437,7 +437,7 @@ kubectl delete targetgroupbinding.elbv2.k8s.aws $RESOURCE_NAME -n vllm --ignore-
 INGRESS_NAME=$(kubectl get ingress -n vllm -o jsonpath='{.items[0].metadata.name}')
 kubectl patch ingress $INGRESS_NAME -n vllm --type=merge -p '{"metadata":{"finalizers":[]}}'
 ```
-**3. Calico Cleanup Jobs**
+**3️⃣. Calico Cleanup Jobs**
 
 If encountering job conflicts during Calico removal (i.e: * jobs.batch "tigera-operator-uninstall" already exists) run the below commands
 ```bash
