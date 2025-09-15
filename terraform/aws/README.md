@@ -11,13 +11,17 @@
  
 ## 📋 Table of Contents
 
-1. [Project structure](#project-structure)  
-2. [Prerequisites](#prerequisites)  
-3. [Quick start](#quick-start)  
-4. [Configuration knobs](#configuration-knobs)  
-5. [Verify the deployment](#verify-the-deployment)  
-6. [Troubleshooting](#troubleshooting)  
-7. [Destroy](#destroy)
+1. [Project structure](#-project-structure)  
+2. [Prerequisites](#-prerequisites)
+3. [What Terraform Deploys](#%EF%B8%8F-what-terraform-deploys)
+4. [Hardware Options](#-hardware-options)
+5. [Configuration knobs](#️-configuration-knobs)
+6. [Quick start](#quick-start)
+7. [Quick Test](#-quick-test)
+8. [Observability](#-observability)
+9. [Troubleshooting](#-troubleshooting)  
+11. [Cleanup Notes](#-cleanup-notes)
+12. [Additional Resources](#-additional-resources)
 ---
 ## 📂 Project Structure
 ```nginx
