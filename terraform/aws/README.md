@@ -16,7 +16,7 @@
 3. [What Terraform Deploys](#%EF%B8%8F-what-terraform-deploys)
 4. [Hardware Options](#-hardware-options)
 5. [Configuration knobs](#%EF%B8%8Fconfiguration-knobs)
-6. [Quick start](#quick-start)
+6. [Quick start](#-quick-start)
 7. [Quick Test](#-quick-test)
 8. [Observability](#-observability)
 9. [Troubleshooting](#-troubleshooting)  
