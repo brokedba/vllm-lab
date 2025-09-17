@@ -426,7 +426,8 @@ aws elbv2 delete-load-balancer --load-balancer-arn "$alb_arn" --region $region -
 ``` bash
 terraform destroy
 ```
-
+>[!note]
+> Another solution is to disable AWS load balancer control creation altogether by setting the variable `enable_lb_ctl` to `false` see line 348 in [variables.tf](./variables.tf)
 **2️⃣. vllm namespace**
 
 If the vLLM namespace gets stuck in "Terminating" state, you might need to patch some finalizers  
