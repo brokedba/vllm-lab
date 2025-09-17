@@ -354,7 +354,7 @@ curl ${vllm_api_url}/completions     -H "Content-Type: application/json"     -d 
 kubectl -n vllm get svc
 ```
 ## 🔬 Observability
-Grafana (if enabled) you can use port forwarding to access the dashboard. URL → http://"<localhost>:3000"
+Grafana (if enabled) you can use port forwarding to access the dashboard. URL → http://"localhost:3000"
  ```bash
  kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80 -n kube-prometheus-stack
  ```
