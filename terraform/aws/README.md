@@ -354,7 +354,10 @@ curl ${vllm_api_url}/completions     -H "Content-Type: application/json"     -d 
 kubectl -n vllm get svc
 ```
 ## 🔬 Observability
- Grafana (if enabled) you can use the AWS LoadBalancer URL → https://"<alb-dns>"/grafana
+Grafana (if enabled) you can use port forwarding to access the dashboard. URL → http://"<localhost>:3000"
+ ```bash
+ kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80 -n kube-prometheus-stack
+ ```
 - Login: admin
 - Run the below command to fetch the password
 ```console
@@ -411,19 +414,17 @@ If using ingress and encountering VPC deletion issues due to an LB creation outs
 export PROFILE=profile_name  (ex: default)
 export region =<region>       (ex: "us-east-2")
  # 1. Clean up load balancer
+alb_name=`aws elbv2 describe-load-balancers --query "LoadBalancers[*].LoadBalancerName" --output text --profile $PROFILE`
  alb_arn=$(aws elbv2 describe-load-balancers \
-   --names <Balancer-name> \
+   --names  $alb_name \
   --query 'LoadBalancers[0].LoadBalancerArn' \
   --output text --region $region --profile $PROFILE)
 # delete :
 aws elbv2 delete-load-balancer --load-balancer-arn "$alb_arn" --region $region --profile $PROFILE 
 ```
-- Clean up associated security groups
-list and delete orphan SGs (non-default)
-```bash
-VPC_ID=$(aws ec2 describe-vpcs --query 'Vpcs[?Tags[?Key==`Name` && Value==`vllm-vpc`]].VpcId' --output text --profile $PROFILE)
-# Deletion
-aws ec2 describe-security-groups --filters Name=vpc-id,Values=${VPC_ID} --query "SecurityGroups[?starts_with(GroupName, 'k8s-') || contains(GroupName, 'vllm')].GroupId"    --output text    --profile ${PROFILE} |  tr -s '[:space:]' '\n' |  xargs -r -I{} aws ec2 delete-security-group --group-id {} --profile ${PROFILE}
+**Run terraform destroy**
+``` bash
+terraform destroy
 ```
 
 **2️⃣. vllm namespace**
@@ -433,6 +434,7 @@ If the vLLM namespace gets stuck in "Terminating" state, you might need to patch
 # Remove finalizers from AWS resources
 RESOURCE_NAME=$(kubectl get targetgroupbinding.elbv2.k8s.aws -n vllm -o jsonpath='{.items[0].metadata.name}')
 kubectl patch targetgroupbinding.elbv2.k8s.aws $RESOURCE_NAME -n vllm --type=merge -p '{"metadata":{"finalizers":[]}}'
+-- the delete might not be needed
 kubectl delete targetgroupbinding.elbv2.k8s.aws $RESOURCE_NAME -n vllm --ignore-not-found=true
 INGRESS_NAME=$(kubectl get ingress -n vllm -o jsonpath='{.items[0].metadata.name}')
 kubectl patch ingress $INGRESS_NAME -n vllm --type=merge -p '{"metadata":{"finalizers":[]}}'
@@ -445,6 +447,14 @@ If encountering job conflicts during Calico removal (i.e: * jobs.batch "tigera-o
 kubectl -n tigera-operator delete job tigera-operator-uninstall --ignore-not-found=true
 kubectl -n tigera-operator delete job tigera-operator-delete-crds --ignore-not-found=true
 kubectl delete ns tigera-operator --ignore-not-found=true
+```
+
+**4️⃣. Clean up associated security groups**
+list and delete orphan SGs (non-default)
+```bash
+VPC_ID=$(aws ec2 describe-vpcs --query 'Vpcs[?Tags[?Key==`Name` && Value==`vllm-vpc`]].VpcId' --output text --profile $PROFILE)
+# Deletion
+aws ec2 describe-security-groups --filters Name=vpc-id,Values=${VPC_ID} --query "SecurityGroups[?starts_with(GroupName, 'k8s-') || contains(GroupName, 'vllm')].GroupId"    --output text    --profile ${PROFILE} |  tr -s '[:space:]' '\n' |  xargs -r -I{} aws ec2 delete-security-group --group-id {} --profile ${PROFILE}
 ```
 **Note:** These manual steps are only needed if terraform destroy encounters specific dependency issues. 
 ## 📚 Additional Resources
