@@ -221,7 +221,160 @@ This stack provides extensive customization options to tailor your deployment:
 
 **📓** See the complete configuration template:
 - **Environment variables**: [`env-vars.template`](./env-vars.template)
-- **Terraform variables**: [`terraform.tfvars.example`](./terraform.tfvars.example)
+- **Terraform variables tfvars**: [`terraform.tfvars.example`](./terraform.tfvars.example)
+<details><summary><b> FULL LIST OF MODULES - RESOURCES - INPUT - OUTPUT VARIABLES </b></summary>
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.70 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.15 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.32 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.5 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.6 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 4.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.38.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
+| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.13.1 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_data_addons"></a> [data\_addons](#module\_data\_addons) | ./modules/eks-data-addons | n/a |
+| <a name="module_eks"></a> [eks](#module\_eks) | ./modules/aws-eks | n/a |
+| <a name="module_eks_addons"></a> [eks\_addons](#module\_eks\_addons) | ./modules/eks-blueprints-addons | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | ./modules/aws-networking/aws-vpc | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_efs_file_system.eks-efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) | resource |
+| [aws_efs_mount_target.eks-efs-mounts](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target) | resource |
+| [aws_eks_access_entry.developer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_entry) | resource |
+| [aws_iam_policy.eks_console_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.developer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.developer_eks_console_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_security_group.efs-sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [helm_release.calico](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.vllm_stack](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubectl_manifest.cluster_role_binding_reader](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.cluster_role_reader](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.vllm_service_monitor](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubernetes_config_map.vllm_dashboard](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [kubernetes_namespace.vllm](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [kubernetes_secret.hf_token](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
+| [kubernetes_storage_class.gp3](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/storage_class) | resource |
+| [kubernetes_storage_class_v1.eks-efs-sc](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/storage_class_v1) | resource |
+| [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [time_sleep.wait_for_addons](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_kms_key.eks_managed_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_key) | data source |
+| [aws_subnet.cluster_public_subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
+| [aws_subnet.cluster_subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
+| [aws_subnets.existing_private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_subnets.existing_public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_vpc.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [aws_vpc.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [kubernetes_ingress_v1.vllm_ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/ingress_v1) | data source |
+| [template_file.calico_values](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+| [template_file.vllm_values](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_api_private_access"></a> [api\_private\_access](#input\_api\_private\_access) | n/a | `bool` | `true` | no |
+| <a name="input_api_public_access"></a> [api\_public\_access](#input\_api\_public\_access) | API endpoint exposure | `bool` | `true` | no |
+| <a name="input_api_public_access_cidrs"></a> [api\_public\_access\_cidrs](#input\_api\_public\_access\_cidrs) | n/a | `list(string)` | <pre>[<br/>  "0.0.0.0/0"<br/>]</pre> | no |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | AWS profile to use | `string` | `"cloudthrill"` | no |
+| <a name="input_calico_values_file"></a> [calico\_values\_file](#input\_calico\_values\_file) | n/a | `string` | `"modules/eks-data-addons/helm-charts/calico/calico-values.yaml"` | no |
+| <a name="input_calico_version"></a> [calico\_version](#input\_calico\_version) | n/a | `string` | `"3.27.2"` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS cluster name. | `string` | `"vllm-eks"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.30"` | no |
+| <a name="input_cpu_node_desired_size"></a> [cpu\_node\_desired\_size](#input\_cpu\_node\_desired\_size) | n/a | `number` | `2` | no |
+| <a name="input_cpu_node_instance_types"></a> [cpu\_node\_instance\_types](#input\_cpu\_node\_instance\_types) | n/a | `list(string)` | <pre>[<br/>  "t3.xlarge"<br/>]</pre> | no |
+| <a name="input_cpu_node_max_size"></a> [cpu\_node\_max\_size](#input\_cpu\_node\_max\_size) | n/a | `number` | `2` | no |
+| <a name="input_cpu_node_min_size"></a> [cpu\_node\_min\_size](#input\_cpu\_node\_min\_size) | n/a | `number` | `1` | no |
+| <a name="input_cpu_vllm_helm_config"></a> [cpu\_vllm\_helm\_config](#input\_cpu\_vllm\_helm\_config) | Path to the Helm chart values template for CPU inference. | `string` | `"modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress.tpl"` | no |
+| <a name="input_create_vpc"></a> [create\_vpc](#input\_create\_vpc) | Create a new VPC (true) or reuse an existing one (false). | `bool` | `true` | no |
+| <a name="input_enable_cert_manager"></a> [enable\_cert\_manager](#input\_enable\_cert\_manager) | n/a | `bool` | `true` | no |
+| <a name="input_enable_cert_manager_cluster_issuer"></a> [enable\_cert\_manager\_cluster\_issuer](#input\_enable\_cert\_manager\_cluster\_issuer) | n/a | `bool` | `true` | no |
+| <a name="input_enable_cloudwatch"></a> [enable\_cloudwatch](#input\_enable\_cloudwatch) | Enable AWS Cloudwatch Metrics add-on for Container Insights | `bool` | `false` | no |
+| <a name="input_enable_cluster_creator_admin_permissions"></a> [enable\_cluster\_creator\_admin\_permissions](#input\_enable\_cluster\_creator\_admin\_permissions) | Enable admin permissions for the cluster creator. | `bool` | `true` | no |
+| <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | n/a | `bool` | `true` | no |
+| <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | n/a | `bool` | `true` | no |
+| <a name="input_enable_ebs_csi_driver"></a> [enable\_ebs\_csi\_driver](#input\_enable\_ebs\_csi\_driver) | n/a | `bool` | `true` | no |
+| <a name="input_enable_efs_csi_driver"></a> [enable\_efs\_csi\_driver](#input\_enable\_efs\_csi\_driver) | n/a | `bool` | `false` | no |
+| <a name="input_enable_efs_storage"></a> [enable\_efs\_storage](#input\_enable\_efs\_storage) | Enable EFS storage resources for debugging | `bool` | `false` | no |
+| <a name="input_enable_external_dns"></a> [enable\_external\_dns](#input\_enable\_external\_dns) | Enable external-dns operator add-on | `bool` | `false` | no |
+| <a name="input_enable_external_secrets"></a> [enable\_external\_secrets](#input\_enable\_external\_secrets) | n/a | `bool` | `true` | no |
+| <a name="input_enable_grafana"></a> [enable\_grafana](#input\_enable\_grafana) | n/a | `bool` | `true` | no |
+| <a name="input_enable_iam_roles"></a> [enable\_iam\_roles](#input\_enable\_iam\_roles) | Enable IAM role resources for debugging | `bool` | `false` | no |
+| <a name="input_enable_karpenter"></a> [enable\_karpenter](#input\_enable\_karpenter) | Enable Karpenter controller add-on | `bool` | `false` | no |
+| <a name="input_enable_kube_prometheus_stack"></a> [enable\_kube\_prometheus\_stack](#input\_enable\_kube\_prometheus\_stack) | Enable Kube Prometheus Stack | `bool` | `true` | no |
+| <a name="input_enable_lb_ctl"></a> [enable\_lb\_ctl](#input\_enable\_lb\_ctl) | Enable AWS Load Balancer Controller add-on | `bool` | `true` | no |
+| <a name="input_enable_metrics_server"></a> [enable\_metrics\_server](#input\_enable\_metrics\_server) | n/a | `bool` | `true` | no |
+| <a name="input_enable_nat_gateway"></a> [enable\_nat\_gateway](#input\_enable\_nat\_gateway) | n/a | `bool` | `true` | no |
+| <a name="input_enable_prometheus"></a> [enable\_prometheus](#input\_enable\_prometheus) | n/a | `bool` | `true` | no |
+| <a name="input_enable_vllm"></a> [enable\_vllm](#input\_enable\_vllm) | Enable VLLM production stack add-on | `bool` | `false` | no |
+| <a name="input_enable_vpa"></a> [enable\_vpa](#input\_enable\_vpa) | Enable Vertical Pod Autoscaler add-on | `bool` | `false` | no |
+| <a name="input_gpu_capacity_type"></a> [gpu\_capacity\_type](#input\_gpu\_capacity\_type) | Choose the GPU capacity type for the GPU node-group.<br/>• "ON\_DEMAND" → use on-demand GPU instances<br/>• "SPOT" → use spot GPU instances | `string` | `"ON_DEMAND"` | no |
+| <a name="input_gpu_node_desired_size"></a> [gpu\_node\_desired\_size](#input\_gpu\_node\_desired\_size) | n/a | `number` | `1` | no |
+| <a name="input_gpu_node_instance_types"></a> [gpu\_node\_instance\_types](#input\_gpu\_node\_instance\_types) | n/a | `list(string)` | <pre>[<br/>  "g4dn.xlarge"<br/>]</pre> | no |
+| <a name="input_gpu_node_max_size"></a> [gpu\_node\_max\_size](#input\_gpu\_node\_max\_size) | n/a | `number` | `1` | no |
+| <a name="input_gpu_node_min_size"></a> [gpu\_node\_min\_size](#input\_gpu\_node\_min\_size) | n/a | `number` | `1` | no |
+| <a name="input_gpu_operator_file"></a> [gpu\_operator\_file](#input\_gpu\_operator\_file) | Path to GPU Operator Helm values YAML. | `string` | `"modules/llm-stack/helm/gpu/gpu-operator-values.yaml"` | no |
+| <a name="input_gpu_vllm_helm_config"></a> [gpu\_vllm\_helm\_config](#input\_gpu\_vllm\_helm\_config) | Path to the Helm chart values template for GPU inference. | `string` | `"modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress.tpl"` | no |
+| <a name="input_hf_token"></a> [hf\_token](#input\_hf\_token) | Hugging Face access token with model-download scope | `string` | n/a | yes |
+| <a name="input_inference_hardware"></a> [inference\_hardware](#input\_inference\_hardware) | Choose the hardware profile for inference workloads.<br/>• "cpu" → only the default CPU node‑group<br/>• "gpu" → CPU node‑group + a GPU node‑group (g4dn.xlarge, 1 node) | `string` | `"cpu"` | no |
+| <a name="input_letsencrypt_email"></a> [letsencrypt\_email](#input\_letsencrypt\_email) | n/a | `string` | `"admin@example.com"` | no |
+| <a name="input_nvidia_setup"></a> [nvidia\_setup](#input\_nvidia\_setup) | GPU enablement strategy:<br/>  • "plugin"           → installs only the nvidia-device-plugin DaemonSet<br/>  • "operator\_custom"  → GPU Operator with your YAML values file<br/>  • "operator\_no\_driver" → GPU Operator, driver & toolkit pods disabled (map-style set) | `string` | `"plugin"` | no |
+| <a name="input_one_nat_gateway_per_az"></a> [one\_nat\_gateway\_per\_az](#input\_one\_nat\_gateway\_per\_az) | n/a | `bool` | `false` | no |
+| <a name="input_pod_cidr"></a> [pod\_cidr](#input\_pod\_cidr) | Pod network CIDR. | `string` | `"10.244.0.0/16"` | no |
+| <a name="input_private_subnet_cidrs"></a> [private\_subnet\_cidrs](#input\_private\_subnet\_cidrs) | CIDRs for private subnets. | `list(string)` | <pre>[<br/>  "10.20.1.0/24",<br/>  "10.20.2.0/24",<br/>  "10.20.3.0/24"<br/>]</pre> | no |
+| <a name="input_public_subnet_cidrs"></a> [public\_subnet\_cidrs](#input\_public\_subnet\_cidrs) | CIDRs for public subnets. | `list(string)` | <pre>[<br/>  "10.20.101.0/24",<br/>  "10.20.102.0/24",<br/>  "10.20.103.0/24"<br/>]</pre> | no |
+| <a name="input_region"></a> [region](#input\_region) | AWS region where all resources are deployed. | `string` | `"us-east-2"` | no |
+| <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | n/a | `bool` | `true` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to all AWS resources. | `map(string)` | <pre>{<br/>  "Application": "ai-inference",<br/>  "CostCenter": "AI-1234",<br/>  "Environment": "production",<br/>  "Project": "vllm-production-stack",<br/>  "Team": "LLMOps"<br/>}</pre> | no |
+| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | CIDR block for the VPC. | `string` | `"10.20.0.0/16"` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Existing VPC ID (required when create\_vpc = false). | `string` | `""` | no |
+| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Name for the VPC. | `string` | `"vllm-vpc"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_Stack_Info"></a> [Stack\_Info](#output\_Stack\_Info) | n/a |
+| <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | n/a |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | n/a |
+| <a name="output_cluster_public_subnets_info"></a> [cluster\_public\_subnets\_info](#output\_cluster\_public\_subnets\_info) | Information about public subnets used by the EKS cluster |
+| <a name="output_cluster_subnets_info"></a> [cluster\_subnets\_info](#output\_cluster\_subnets\_info) | Information about private subnets used by the EKS cluster |
+| <a name="output_configure_kubectl"></a> [configure\_kubectl](#output\_configure\_kubectl) | Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig |
+| <a name="output_cpu_node_instance_type"></a> [cpu\_node\_instance\_type](#output\_cpu\_node\_instance\_type) | Instance types configured for CPU nodes |
+| <a name="output_gpu_node_instance_type"></a> [gpu\_node\_instance\_type](#output\_gpu\_node\_instance\_type) | Instance types configured for GPU nodes |
+| <a name="output_grafana_forward_cmd"></a> [grafana\_forward\_cmd](#output\_grafana\_forward\_cmd) | Command to forward Grafana port |
+| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | n/a |
+| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | n/a |
+| <a name="output_vllm_api_url"></a> [vllm\_api\_url](#output\_vllm\_api\_url) | Full HTTPS URL for the vLLM API (null until hostname exists) |
+| <a name="output_vllm_ingress_hostname"></a> [vllm\_ingress\_hostname](#output\_vllm\_ingress\_hostname) | The hostname of the vLLM ingress load balancer (null if no ingress configured) |
+| <a name="output_vpc_cidr"></a> [vpc\_cidr](#output\_vpc\_cidr) | #### Network outputs ##### |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | n/a |
+</details>
+
 ---
 ## 🚀 Quick start
 ### ⚙️ Provisioning logic
@@ -326,27 +479,47 @@ terraform apply
 
 ## 🧪 Quick Test
 
-**1. Extracting the Router URL via AWS ALB Ingress**
+**1. Router Endpoint and API URL**
 
-- You can find the ALB-based router endpoint using the `vllm_ingress_hostname` Terraform output, or by running the following command:
+1.1 **Router Endpoint through port forwarding**
+   run the following command:
+```nginx
+$ kubectl -n vllm port-forward svc/vllm-gpu-router-service 30080:80
+
+```
+1.2 **Extracting the Router URL via AWS ALB Ingress**
+If AWS load balancer Controler is enabled (`enable_lb_ctl=true`), The router endpoint ingress URL is displayed in the `vllm_ingress_hostname` output, or by running the following command:
 
 ```nginx
 $ k get ingress -n vllm -o json| jq -r .items[0].status.loadBalancer.ingress[].hostname
 k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com
-export vllm_api_url="https://k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com/v1"
 ```
+
 **2. List models**
 ```bash
+-- case 1 : Port forwarding
+export vllm_api_url=http://localhost:30080/v1
+-- case 2 : AWS ALB Ingress enabled
+export vllm_api_url=http://k8s-vllm-vllmingr-983dc8fd68-161738753.us-east-2.elb.amazonaws.com/v1
+
+---- check models
 curl -s ${vllm_api_url}/models | jq .
 ```
 **3. Completion**
+Aplicable for both ingress and port forwarding URLs
 ```nginx
 curl ${vllm_api_url}/completions     -H "Content-Type: application/json"     -d '{
         "model": "/data/models/tinyllama",
-        "prompt": "Who won the World Cup 2022",
-        "max_tokens": 10,
+        "prompt": "Toronto is a",
+        "max_tokens": 20,
         "temperature": 0
     }'| jq .choices[].text
+
+
+//*
+"city that is known for its vibrant nightlife, and there are plenty of bars and clubs"
+//*
+
 ```
 
 **5. vLLM model service**
@@ -409,7 +582,7 @@ In rare cases, you may need to manually clean up some AWS resources while runnin
 
 **1️⃣. load balancer blocking public subnets/igw deletion** 
 
-If using ingress and encountering VPC deletion issues due to an LB creation outside terraform, run the below cleanup commands:
+When AWS LB controller ingress is enabled (`enable_lb_ctl=true`), you might encounter VPC deletion issues linked to LB dependency. Run the below cleanup commands:
 ```bash
 export PROFILE=profile_name  (ex: default)
 export region =<region>       (ex: "us-east-2")
@@ -431,7 +604,7 @@ terraform destroy
 
 **2️⃣. vllm namespace**
 
-If the vLLM namespace gets stuck in "Terminating" state, you might need to patch some finalizers  
+If the vLLM namespace gets stuck in "Terminating" state, you might need to patch some finalizers (Only when ingress is enabled:`enable_lb_ctl=true`). 
 ```bash
 # Remove finalizers from AWS resources
 RESOURCE_NAME=$(kubectl get targetgroupbinding.elbv2.k8s.aws -n vllm -o jsonpath='{.items[0].metadata.name}')
@@ -452,7 +625,8 @@ kubectl delete ns tigera-operator --ignore-not-found=true
 ```
 
 **4️⃣. Clean up associated security groups**
-list and delete orphan SGs (non-default)
+
+When AWS LB controller ingress is enabled (`enable_lb_ctl=true`) you might need to delete orphan SGs (non-default) to destroy subnets:
 ```bash
 VPC_ID=$(aws ec2 describe-vpcs --query 'Vpcs[?Tags[?Key==`Name` && Value==`vllm-vpc`]].VpcId' --output text --profile $PROFILE)
 # Deletion
