@@ -1,4 +1,5 @@
 # 🧑🏼‍🚀 vLLM Production Stack on Nebius MK8s with terraform
+✍🏼 This guide shows how to deploy the **vLLM Production Stack** on **Nebius MK8s** with GPU support, leveraging Terraform. 
 <!-- canvas.md -->
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables':{ 'primaryColor':'#00ff00', 'primaryTextColor':'#0f0f0f', 'primaryBorderColor':'#00ff00','lineColor':'#007700', 'secondaryColor':'#007700', 'tertiaryColor':'#fff'}}}%%
@@ -52,7 +53,7 @@ flowchart TD
     class O,P,Q user
     class R,S,T output
 ```
-✍🏼 This guide shows how to deploy the **vLLM Production Stack** on **Nebius MK8s** with GPU support, leveraging Terraform. 
+
 
 | Project Item           | Description                                                                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
