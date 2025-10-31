@@ -574,6 +574,7 @@ kubectl get secret -n kube-prometheus-stack kube-prometheus-stack-grafana -o jso
  429 ... too many certificates (10000) already issued for "nip.io" in the last 168h0m0s, retry after <date> 
 ```
 **Quick fix**
+
 Edit the vLLM Helm [gpu-tinyllama-light-ingress](./config/llm-stack/helm/gpu/gpu-tinyllama-light-ingress-nebius.tpl) values and swap the domain : 
 ```yaml
 # line 101 - 110
@@ -584,6 +585,8 @@ ingress:
     - hosts:
         - vllm-api.${nginx_ip_hex}.nip.io # ← change to sslip.io (or vice-versa)
 ```
+
+---
 
 ## 📚 Additional Resources
 
